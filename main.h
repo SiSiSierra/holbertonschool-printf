@@ -16,6 +16,9 @@ char *convert_int(va_list);
 char *convert_char(va_list);
 char *convert_str(va_list);
 
+/** Helper functions */
+void reverse_string(char *buffer, int len);
+
 /** Structures */
 
 /**
