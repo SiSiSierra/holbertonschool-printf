@@ -1,8 +1,9 @@
-#include <unistd.h>
+#include "../main.h"
+#include <stdio.h>  
 
 int main()
 {
-	write(1, "Test\n12345", 7);
-	write(1, "\n", 1);
+	printf("test123\n");
+	_printf("test123");
 	return (0);
 }
