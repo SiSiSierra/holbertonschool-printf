@@ -17,7 +17,7 @@ if (n == 0) /* handle zero case*/
 {
 buffer = malloc(2);
 if (!buffer)
-return (NULL);
+exit (-1);
 buffer[0] = '0';
 buffer[1] = '\0';
 return (buffer);
@@ -35,7 +35,7 @@ len++;
 }
 buffer = malloc(len + negative + 1); /* allocate mem for buffer */
 if (!buffer)
-return (NULL);
+exit (-1);
 for (i = 0; num > 0; i++) /* add number in reverse */
 {
 buffer[i] = (num % 10) + '0';
