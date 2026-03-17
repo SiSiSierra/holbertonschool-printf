@@ -14,7 +14,6 @@
  */
 int _printf(const char *format, ...)
 {
-	/** Variables */
 	int printed = 0;
 	int i = 0;
 	int j;
@@ -22,17 +21,18 @@ int _printf(const char *format, ...)
 	int format_length;
 	char *output;
 
-	/** Code */
 	va_start(args, format);
 	/** Loop until format is terminated */
 	while (format[i] != '\0')
 	{
+        /* If char is not a format spec, write char */
 		if (format[i] != '%')
 		{
 			printed += write(1, &format[i], 1);
 			i++;
 			continue;
 		}
+        /* handle %% case */
 		if (format[i + 1] == '%')
 		{
 			printed += write(1, &format[i + 1], 1);
@@ -50,10 +50,12 @@ int _printf(const char *format, ...)
 			printed += write(1, &output[j], 1);
 			j++;
 		}
+		free(output);
 		/** Move i past used format string */
 		i += format_length;
 		continue;
 	}
+    	va_end(args);
 	/** End */
 	return (printed);
 }
