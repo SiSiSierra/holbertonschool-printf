@@ -16,9 +16,7 @@ char swap;
 while (start < end)
 {
 swap = str[start];
-str[start] = str[end];
-str[end] = swap;
-start++;
-end--;
+str[start++] = str[end];
+str[end--] = swap;
 }
 }

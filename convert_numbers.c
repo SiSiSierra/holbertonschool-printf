@@ -44,5 +44,6 @@ num /= 10;
 if (negative == 1) /* add negative sign*/
 buffer[i++] = '-';
 reverse_string(buffer, i); /* reverse str in place */
+buffer[i] = '\0';
 return (buffer);
 }
