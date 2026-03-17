@@ -20,7 +20,7 @@ char *convert_and_format(char *format, va_list args)
  * @format: Pointer to beginning of format
  * Return: Pointer to function that converts a data type to string
  */
-int (*get_conv_func(char *format))(va_list)
+char *(*get_conv_func(char *format))(va_list)
 {
 	/** Variables */
 	/** List of conversion specifiers and their functions */
