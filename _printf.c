@@ -1,4 +1,5 @@
 #include "main.h"
+#include <unistd.h>
 
 /**
  * _printf - Print a string of characters using specified format
@@ -13,11 +14,20 @@
  */
 int _printf(const char *format, ...)
 {
-	/** Variables */
-	int printed = 0;
+/** Variables */
+int count = 0;
 
-	/** Code */
+if (format == NULL)
+return (-1);
 
-	/** End */
-	return (printed);
+/** Code */
+while (format[count] != '\0')
+{
+write(1, &format[count], 1);
+count++;
 }
+
+/** End */
+return (count);
+}
+
