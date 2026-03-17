@@ -24,21 +24,26 @@ char *convert_char(va_list args)
  */
 char *convert_str(va_list args)
 {
-	char *out;
-	char *data = va_arg(args, char *);
-	int i = 0;
+char *data = va_arg(args, char *);
+char *out;
+int i = 0;
 
-	while (data[i] != '\0')
-		i++;
-	out = malloc(i + 1);
-	if (out == NULL)
-		exit(-1);
-	i = 0;
-	while (data[i] != '\0')
-	{
-		out[i] = data[i];
-		i++;
-	}
-	out[i] = '\0';
-	return (out);
+/* handle NULL value */
+if (data == NULL)
+data = "(null)";
+
+while (data[i] != '\0')
+i++;
+out = malloc(i + 1);
+if (out == NULL)
+exit(-1);
+i = 0;
+while (data[i] != '\0')
+{
+out[i] = data[i];
+i++;
+}
+out[i] = '\0';
+
+return (out);
 }
