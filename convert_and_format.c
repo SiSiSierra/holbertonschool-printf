@@ -1,50 +1,55 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
- * convert_and_format - Convert a _printf argument into string as specified
+ * get_format_length - Determine the length of format substring for _printf
  *
- * @format: Pointer to beginning of format and conversion specifier
- * @args: va_list containing data to convert
- * Return: Pointer to complete formatted string
+ * @format: Pointer to beginning of format substring
+ * Return: Length of substring
  */
-char *convert_and_format(char *format, va_list args)
+int get_format_length(const char *format)
 {
-	void(format);
-	void(args);
-	return ("Attempted to convert and format");
-}
-
-/**
- * get_conv_func - Determine which conversion to use
- *
- * @format: Pointer to beginning of format
- * Return: Pointer to function that converts a data type to string
- */
-char *(*get_conv_func(char *format))(va_list)
-{
-	/** Variables */
-	/** List of conversion specifiers and their functions */
-	convert_t conversions[] = {
-		{"d", convert_int},
-		{"i", convert_int},
-		{NULL, NULL}
-	};
+	char specifiers[11] = {'c', 's', 'd', 'i', 'b',
+		'u', 'o', 'x', 'X', 'p', 'S'};
 	int i = 0;
 	int j;
+	int length = 0;
 
-	/** Go through format looking for conversion specifier */
 	while (format[i] != '\0')
 	{
-		/** Compare to specifiers in conversions list */
+		length++;
 		j = 0;
-		while (conversions[j].specifier != NULL)
+		while (j < 11)
 		{
-			if (*conversions[j].specifier == format[i])
-				return (conversions[j].f);
+			if (format[i] == specifiers[j])
+				return (length);
 			j++;
 		}
 		i++;
 	}
-	/** If nothing is found, be sad */
-	return (NULL);
+	return (length);
+}
+
+/**
+ * get_conv_func - Determine and use correct data conversion
+ *
+ * @format: Pointer to specifier in format
+ * Return: Pointer to function that converts a data type to string
+ */
+char *get_conv_func(const char *format, va_list args)
+{
+	/** Variables */
+	/** List of conversion specifiers and their functions */
+	convert_t conversions[] = {
+		{'d', convert_int},
+		{'i', convert_int},
+		{'c', convert_char},
+		{'s', convert_str}
+	};
+	int i = 0;
+
+	/** Go through format looking for conversion specifier */
+	while (conversions[i].specifier != format[0])
+		i++;
+	return (conversions[i].f(args));
 }

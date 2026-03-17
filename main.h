@@ -9,10 +9,12 @@
 int _printf(const char *format, ...);
 
 /** Sub-functions */
-char *convert_and_format(const char *, va_list);
-char *(*get_conv_func(const char *))(va_list);
+char *get_conv_func(const char *, va_list);
+int get_format_length(const char *);
 
 char *convert_int(va_list);
+char *convert_char(va_list);
+char *convert_str(va_list);
 
 /** Structures */
 
@@ -24,7 +26,7 @@ char *convert_int(va_list);
  */
 typedef struct conversion
 {
-	char *specifier;
+	char specifier;
 	char *(*f)(va_list args);
 } convert_t;
 

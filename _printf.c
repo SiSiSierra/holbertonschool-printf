@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
  * _printf - Print a string of characters using specified format
@@ -16,28 +17,41 @@ int _printf(const char *format, ...)
 	/** Variables */
 	int printed = 0;
 	int i = 0;
+	int j;
 	va_list args;
+	int format_length;
+	char *output;
 
 	/** Code */
 	va_start(args, format);
 	/** Loop until format is terminated */
 	while (format[i] != '\0')
 	{
-		/** If character is ordinary, print normally */
 		if (format[i] != '%')
 		{
 			printed += write(1, &format[i], 1);
 			i++;
 			continue;
 		}
-		/** Check if conversion is actually escape for '%' in output */
 		if (format[i + 1] == '%')
 		{
 			printed += write(1, &format[i + 1], 1);
 			i += 2;
 			continue;
 		}
-		i++;
+		format_length = get_format_length(&format[i]);
+		output = get_conv_func(&format[i + format_length - 1], args);
+		/** Format converted using formatting */
+		/** output = format(output) */
+		/** Write final string out */
+		j = 0;
+		while (output[j] != '\0')
+		{
+			printed += write(1, &output[j], 1);
+			j++;
+		}
+		/** Move i past used format string */
+		i += format_length;
 		continue;
 	}
 	/** End */

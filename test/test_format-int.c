@@ -3,8 +3,8 @@
 
 int main(void)
 {
-	printf("%d", 5);
-	_printf("%d", 5);
+	printf("Number -> %d <- Number\n", 5);
+	_printf("Number -> %d <- Number\n", 5);
 
 	return (0);
 }
