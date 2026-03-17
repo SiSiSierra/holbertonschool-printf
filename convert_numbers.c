@@ -6,15 +6,20 @@
  * @args: va_list with desired int next in line
  * Return: Pointer to converted string
  */
+char *convert_char(va_list args)
+{
+(void)args;
+
+return ("Tried to convert an char");
+}
+
 char *convert_int(va_list args)
 {
-/* get int from arg list */
-int n = va_arg(args, int);
-long i = 0, tmp = n, start = 0, end = 0;
+int n = va_arg(args, int); /* get int from arg list */
+long i = 0, tmp = n, num = n, start = 0, end = 0;
 int len = 0, negative = 0;
 char *buffer, swap;
-/* handle zero case*/
-if (n == 0)
+if (n == 0) /* handle zero case*/
 {
 buffer = malloc(2);
 if (!buffer)
@@ -23,37 +28,28 @@ buffer[0] = '0';
 buffer[1] = '\0';
 return (buffer);
 }
-/* convert tmp to positive and store sign */
-if (tmp < 0)
+if (tmp < 0) /* convert tmp to positive and store sign */
 {
 tmp = -tmp;
 negative = 1;
 }
-/* find len of number */
-while (tmp > 0)
+num = tmp;
+while (tmp > 0) /* find len of number */
 {
 tmp /= 10;
 len++;
 }
-/* reset tmp */
-tmp = n;
-if (negative == 1)
-tmp = -tmp;
-/* allocate mem for buffer */
-buffer = malloc(len + negative + 1);
+buffer = malloc(len + negative + 1); /* allocate mem for buffer */
 if (!buffer)
 return (NULL);
-/* add number in reverse */
-for (i = 0; tmp > 0; i++)
+for (i = 0; num > 0; i++) /* add number in reverse */
 {
-buffer[i] = (tmp % 10) + '0';
-tmp /= 10;
+buffer[i] = (num % 10) + '0';
+num /= 10;
 }
-/* add negative sign*/
-if (negative == 1)
+if (negative == 1) /* add negative sign*/
 buffer[i++] = '-';
-/* reverse str in place */
-start = 0;
+start = 0; /* reverse str in place */
 end = i - 1;
 while (start < end)
 {
@@ -64,4 +60,11 @@ start++;
 end--;
 }
 return (buffer);
+}
+
+char *convert_str(va_list args)
+{
+(void)args;
+
+return ("Tried to convert an str");
 }
