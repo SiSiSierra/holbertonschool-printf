@@ -45,7 +45,10 @@ strout_t convert_int(va_list args, format_t format)
 		num /= 10;
 	}
 	if (negative == 1) /* add negative sign*/
+	{
+		len++;
 		out.string[i++] = '-';
+	}
 	reverse_string(out.string, i); /* reverse str in place */;
 	out.length = len;
 	return (out);
