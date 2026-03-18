@@ -27,9 +27,9 @@ format_t get_subformat(const char *format)
  * get_conv_func - Determine and use correct data conversion
  *
  * @specifier: Pointer to specifier in format
- * Return: Struct of correct conversion to use
+ * Return: Converted string
  */
-char *get_conv_func(char const *specifier, va_list args, format_t format)
+strout_t get_conv_func(char const *specifier, va_list args, format_t format)
 {
 	/** Variables */
 	/** List of conversion specifiers and their functions */
