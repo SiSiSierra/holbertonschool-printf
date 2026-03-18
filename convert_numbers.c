@@ -134,7 +134,13 @@ if (out.string == NULL)
 exit(-1);
 
 /* logic here */
-
+/* start from */
+for (i = len - 1; i >= 0 ;i--)
+{
+tmp = n % 8;
+out.string[i] = num + '0';
+n /= 8;
+}
 
 
 return (out);
