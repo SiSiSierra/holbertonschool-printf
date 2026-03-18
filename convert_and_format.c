@@ -2,41 +2,34 @@
 #include <stdio.h>
 
 /**
- * get_format_length - Determine the length of format substring for _printf
+ * get_subformat - Determine every component of a format substring
  *
  * @format: Pointer to beginning of format substring
- * Return: Length of substring
+ * Return: Complete format_t struct
  */
-int get_format_length(const char *format)
+format_t get_subformat(const char *format)
 {
-	char specifiers[11] = {'c', 's', 'd', 'i', 'b',
-		'u', 'o', 'x', 'X', 'p', 'S'};
-	int i = 0;
-	int j;
-	int length = 0;
+	format_t subformat = {{0, 0, 0, 0, 0}, 0, 0, 0};
+	int i = 1; /** 0 is the '%' icon starting the substring */
 
-	while (format[i] != '\0')
-	{
-		length++;
-		j = 0;
-		while (j < 11)
-		{
-			if (format[i] == specifiers[j])
-				return (length);
-			j++;
-		}
-		i++;
-	}
-	return (length);
+	while (format[i] != '\0') /** First look for flags */
+		break;
+	while (format[i] != '\0') /** Second look for width */
+		break;
+	while (format[i] != '\0') /** Third look for precision */
+		break;
+	subformat.length = i + 1;
+
+	return (subformat);
 }
 
 /**
  * get_conv_func - Determine and use correct data conversion
  *
- * @format: Pointer to specifier in format
- * Return: Pointer to function that converts a data type to string
+ * @specifier: Pointer to specifier in format
+ * Return: Struct of correct conversion to use
  */
-char *get_conv_func(const char *format, va_list args)
+char *get_conv_func(char const *specifier, va_list args, format_t format)
 {
 	/** Variables */
 	/** List of conversion specifiers and their functions */
@@ -44,12 +37,14 @@ char *get_conv_func(const char *format, va_list args)
 		{'d', convert_int},
 		{'i', convert_int},
 		{'c', convert_char},
-		{'s', convert_str}
+		{'s', convert_str},
+		{(char)0, NULL} /** Sentinel value, keep last */
 	};
 	int i = 0;
-
 	/** Go through format looking for conversion specifier */
-	while (conversions[i].specifier != format[0])
+	while (*specifier != conversions[i].specifier && conversions[i].f != NULL)
 		i++;
-	return (conversions[i].f(args));
+	if (conversions[i].f == NULL)
+		return(convert_undefined(specifier - format.length + 1, format.length));
+	return (conversions[i].f(args, format));
 }
