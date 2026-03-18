@@ -88,7 +88,7 @@ return (out); /* return */
 }
 
 /**
- * convert_num_to_base_8 - convert base 10 to 8 and return as a string
+ * convert_num_to_base_8 - convert base 10 to base 8 and return as a string
  *
  * @args: va_list with desired int next in line
  * @format: Struct containing formatting arguments
@@ -98,14 +98,14 @@ return (out); /* return */
 strout_t convert_num_to_base_8 (va_list args, format_t format)
 {
 char specifier = 'o';
-(void) format;
 unsigned int n = va_arg(args, unsigned int);
+(void) format;
 return (convert_num_to_base(n, specifier));
 }
 
 /**
  * convert_num_to_base - Convert an int into a string
- *
+ * @n: int from arg list
  * @specifier: format specifier
  * Return: Pointer to converted string
  */
@@ -113,14 +113,13 @@ return (convert_num_to_base(n, specifier));
 strout_t convert_num_to_base (unsigned int n, char specifier)
 {
 unsigned int tmp = n;
-char digits[] = "123456789abcdef"
 unsigned int len = 0;
+int i = 0;
 
 unsigned int base = 0;
-unsigned int uppercase = 0;
+/* unsigned int uppercase = 0; */
 
 strout_t out;
-(void) format;
 
 if (n == 0) /* handle 0 case */
 return (handle_zero_case());
@@ -131,7 +130,7 @@ else if (specifier == 'x') base = 16;
 else
 {
 base = 16;
-uppercase = 1;
+/* uppercase = 1; */
 }
 
 /* find len depending on base */
@@ -151,10 +150,9 @@ exit(-1);
 for (i = len - 1; i >= 0 ;i--)
 {
 tmp = n % 8;
-out.string[i] = num + '0';
+out.string[i] = tmp + '0';
 n /= 8;
 }
-
 
 return (out);
 }

@@ -96,6 +96,8 @@ int main(void)
     _printf("binary of 35: %b\n", 35);
     _printf("binary of 35: %b\n", 5325);
 
+     _printf("oct of 22: %o\n", 22);
+
     
 
 
