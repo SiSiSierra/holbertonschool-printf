@@ -18,32 +18,26 @@ int _printf(const char *format, ...)
 	int i = 0;
 	int j;
 	va_list args;
-	int format_length;
+	format_t subformat;
 	char *output;
 
 	va_start(args, format);
-	/** Loop until format is terminated */
 	while (format[i] != '\0')
 	{
-        /* If char is not a format spec, write char */
-		if (format[i] != '%')
+		if (format[i] != '%') /* Write char if not special */
 		{
 			printed += write(1, &format[i], 1);
 			i++;
 			continue;
 		}
-        /* handle %% case */
-		if (format[i + 1] == '%')
+		if (format[i + 1] == '%') /* Write two '%' if escaped */
 		{
 			printed += write(1, &format[i + 1], 1);
 			i += 2;
 			continue;
 		}
-		format_length = get_format_length(&format[i]);
-		output = get_conv_func(&format[i + format_length - 1], args);
-		/** Format converted using formatting */
-		/** output = format(output) */
-		/** Write final string out */
+		subformat = get_subformat(&format[i]);
+		output = get_conv_func(&format[i] + subformat.length - 1, args, subformat);
 		j = 0;
 		while (output[j] != '\0')
 		{
@@ -52,10 +46,9 @@ int _printf(const char *format, ...)
 		}
 		free(output);
 		/** Move i past used format string */
-		i += format_length;
+		i += subformat.length;
 		continue;
 	}
-    	va_end(args);
-	/** End */
+	va_end(args);
 	return (printed);
 }
