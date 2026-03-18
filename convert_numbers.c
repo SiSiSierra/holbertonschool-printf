@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
  * convert_int - Convert an int into a string
@@ -11,48 +10,41 @@
 
 strout_t convert_int(va_list args, format_t format)
 {
-	int n = va_arg(args, int); /* get int from arg list */
-	long i = 0, tmp = n, num = n;
-	int len = 0, negative = 0;
-	strout_t out;
-	(void) format;
+int n = va_arg(args, int); /* get int from arg list */
+long i = 0, tmp = n, num = n;
+int len = 0, negative = 0;
+strout_t out;
+(void) format;
+if (n == 0) /* handle zero case*/
+return (handle_zero_case());
 
-	if (n == 0) /* handle zero case*/
-	{
-		out.string = malloc(1);
-		if (out.string == NULL)
-			exit(-1);
-		out.string[0] = '0';
-		out.length = 1;
-		return (out);
-	}
-	if (tmp < 0) /* convert tmp to positive and store sign */
-	{
-		tmp = -tmp;
-		negative = 1;
-	}
-	num = tmp;
-	while (tmp > 0) /* find len of number */
-	{
-		tmp /= 10;
-		len++;
-	}
-	out.string = malloc(len + negative); /* allocate mem for buffer */
-	if (out.string == NULL)
-		exit(-1);
-	for (i = 0; num > 0; i++) /* add number in reverse */
-	{
-		out.string[i] = (num % 10) + '0';
-		num /= 10;
-	}
-	if (negative == 1) /* add negative sign*/
-	{
-		len++;
-		out.string[i++] = '-';
-	}
-	reverse_string(out.string, i); /* reverse str in place */;
-	out.length = len;
-	return (out);
+if (tmp < 0) /* convert tmp to positive and store sign */
+{
+tmp = -tmp;
+negative = 1;
+}
+num = tmp;
+while (tmp > 0) /* find len of number */
+{
+tmp /= 10;
+len++;
+}
+out.string = malloc(len + negative); /* allocate mem for buffer */
+if (out.string == NULL)
+exit(-1);
+for (i = 0; num > 0; i++) /* add number in reverse */
+{
+out.string[i] = (num % 10) + '0';
+num /= 10;
+}
+if (negative == 1) /* add negative sign*/
+{
+len++;
+out.string[i++] = '-';
+}
+reverse_string(out.string, i); /* reverse str in place */;
+out.length = len;
+return (out);
 }
 
 /**
@@ -71,34 +63,26 @@ int bits = 0, bit = 0, i = 0;
 strout_t out;
 (void) format;
 
-/* handle 0 case */
-if (n == 0)
-{
-out.string = malloc(1);
-if (out.string == NULL)
-exit(-1);
-out.string[0] = '0';
-out.length = 1;
-return (out);
-}
+if (n == 0) /* handle 0 case */
+return (handle_zero_case());
 
-/* find highest bit and therefore length */
-while (tmp > 0)
+while (tmp > 0) /* calc num of bits required to store n in binary */
 {
 tmp = tmp >> 1;
 bits++;
 }
 
-out.length = bits;
-out.string = malloc(bits);
+out.length = bits; /* get length of str */
+out.string = malloc(bits); /* allocate memory */
 if (out.string == NULL)
 exit(-1);
 
-for (i = bits; i >= 0; i--)
+/* fill str starting from highest to lowest binary */
+for (i = bits - 1; i >= 0; i--)
 {
-bit = (n >> i) & 1;
-out.string[bits - i] = bit + '0';
+bit = (n >> i) & 1; /* shift right and keep last digit, bitwise operation */
+out.string[bits - (i + 1)] = bit + '0';
 }
 
-return (out);
+return (out); /* return */
 }

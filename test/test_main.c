@@ -92,8 +92,10 @@ int main(void)
     printf("Length of terminating char print: %d\n", printf("%c", '\0'));
     _printf("Length of terminating char print: %d\n", _printf("%c", '\0'));
 
-    printf("Number -> %b <- Number\n", 5);
-    _printf("Number -> %b <- Number\n", 5);
+   _printf("binary of 0: %b\n", 0);
+    _printf("binary of 35: %b\n", 35);
+    _printf("binary of 35: %b\n", 5325);
+
     
 
 
