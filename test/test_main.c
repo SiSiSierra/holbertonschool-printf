@@ -82,6 +82,7 @@ int main(void)
     printf("%!\n");
     _printf("%!\n");
     printf("%K\n");
+<<<<<<< Updated upstream
     _printf("%K\n");
 
     printf("Length of lone percent char print: %d\n", printf("%"));
@@ -89,6 +90,13 @@ int main(void)
 
     printf("Length of terminating char print: %d\n", printf("%c", '\0'));
     _printf("Length of terminating char print: %d\n", _printf("%c", '\0'));
+=======
+	_printf("%K\n");
+
+	/** Flags */
+	printf("%0+d\n", 500);
+	_printf("%0+d\n", 500);
+>>>>>>> Stashed changes
     
 
 

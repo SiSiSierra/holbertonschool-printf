@@ -73,6 +73,7 @@ int _printf(const char *format, ...);
 /** Sub-functions */
 strout_t get_conv_func(const char *, va_list, format_t);
 format_t get_subformat(const char *);
+int get_flag(const char, flags_t);
 
 strout_t convert_int(va_list, format_t);
 strout_t convert_char(va_list, format_t);

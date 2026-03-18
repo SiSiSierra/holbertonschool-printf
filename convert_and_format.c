@@ -12,7 +12,11 @@ format_t get_subformat(const char *format)
 	int i = 1; /** 0 is the '%' icon starting the substring */
 
 	while (format[i] != '\0') /** First look for flags */
-		break;
+	{
+		if (get_flag(format[i], subformat.flags) == 1)
+			break;
+		i++;
+	}
 	while (format[i] != '\0') /** Second look for width */
 		break;
 	while (format[i] != '\0') /** Third look for precision */
@@ -21,6 +25,31 @@ format_t get_subformat(const char *format)
 
 	return (subformat);
 }
+
+/**
+ * get_flag - Extract the flag from pointed character
+ *
+ * @format: Pointer to char with flag in it
+ * @subformat: Struct containing flags to use later
+ * Return: 0 if a flag was found, 1 if no flag, 2 if duped flag
+ */
+int get_flag(const char format, flags_t subformat)
+{
+	if (format == '#')
+		subformat.hash += 1;
+	else if (format == '0')
+		subformat.zero += 1;
+	else if (format == '-')
+		subformat.hyphen += 1;
+	else if (format == ' ')
+		subformat.space += 1;
+	else if (format == '+')
+		subformat.plus += 1;
+	else
+		return (1);
+	return (0);
+}
+
 
 /**
  * get_conv_func - Determine and use correct data conversion
