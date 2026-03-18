@@ -67,7 +67,7 @@ strout_t convert_unsigned_to_bi(va_list args, format_t format)
 {
 unsigned int n = va_arg(args, unsigned int);
 unsigned int tmp = n;
-int bit = 0, len = 0;
+int bits = 0, len = 0, bit = 0;
 strout_t out;
 (void) format;
 
@@ -82,7 +82,7 @@ out.length = 1;
 return (out);
 }
 
-/* find highest bit and therefore length*/
+/* find highest bit and therefore length */
 while (tmp > 0)
 {
 tmp = tmp >> 1;
@@ -94,9 +94,11 @@ out.string = malloc(bits);
 if (out.string == NULL)
 exit(-1);
 
-for (i = bits; i >= 2; i--)
+for (i = bits; i >= 0; i--)
 {
-
+bit = (n >> i) & 1
+out.string[bits - i] = bit + '0';
 }
 
+return (out);
 }
