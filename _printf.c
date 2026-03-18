@@ -38,7 +38,7 @@ int _printf(const char *format, ...)
 		if (format[i + 1] == '\0')
 		{
 			va_end(args);
-			return(-1);
+			return (-1);
 		}
 		subformat = get_subformat(&format[i]);
 		output = get_conv_func(&format[i] + subformat.length - 1, args, subformat);

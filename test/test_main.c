@@ -3,8 +3,10 @@
 #include <limits.h>
 
 /*
-compile - gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -Wno-format *.c test/test_main.c -o test/test_printf
-run file - ./test/test_printf
+compile - 
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -Wno-format *.c test/test_main.c -o test/test_printf
+run file - 
+./test/test_printf
 */
 
 int main(void)
@@ -89,6 +91,11 @@ int main(void)
 
     printf("Length of terminating char print: %d\n", printf("%c", '\0'));
     _printf("Length of terminating char print: %d\n", _printf("%c", '\0'));
+
+   _printf("binary of 0: %b\n", 0);
+    _printf("binary of 35: %b\n", 35);
+    _printf("binary of 35: %b\n", 5325);
+
     
 
 

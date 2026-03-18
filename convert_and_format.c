@@ -37,6 +37,7 @@ strout_t get_conv_func(char const *specifier, va_list args, format_t format)
 		{'i', convert_int},
 		{'c', convert_char},
 		{'s', convert_str},
+		{'b', convert_unsigned_to_bi},
 		{(char)0, NULL} /** Sentinel value, keep last */
 	};
 	int i = 0;

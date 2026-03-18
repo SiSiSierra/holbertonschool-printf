@@ -20,11 +20,11 @@
  */
 typedef struct flags
 {
-	char hash;
-	char zero;
-	char hyphen;
-	char space;
-	char plus;
+char hash;
+char zero;
+char hyphen;
+char space;
+char plus;
 } flags_t;
 
 /**
@@ -37,10 +37,10 @@ typedef struct flags
  */
 typedef struct format
 {
-	flags_t flags;
-	unsigned int width;
-	unsigned int precision;
-	unsigned int length;
+flags_t flags;
+unsigned int width;
+unsigned int precision;
+unsigned int length;
 } format_t;
 
 /**
@@ -51,8 +51,8 @@ typedef struct format
  */
 typedef struct strout
 {
-        char *string;
-        unsigned int length;
+char *string;
+unsigned int length;
 } strout_t;
 
 /**
@@ -63,8 +63,8 @@ typedef struct strout
  */
 typedef struct conversion
 {
-        char specifier;
-        strout_t (*f)(va_list, format_t);
+char specifier;
+strout_t (*f)(va_list, format_t);
 } convert_t;
 
 /** Main function, _printf */
@@ -77,10 +77,12 @@ format_t get_subformat(const char *);
 strout_t convert_int(va_list, format_t);
 strout_t convert_char(va_list, format_t);
 strout_t convert_str(va_list, format_t);
+strout_t convert_unsigned_to_bi(va_list, format_t);
 
 strout_t convert_undefined(const char *, unsigned int);
 
 /** Helper functions */
 void reverse_string(char *buffer, int len);
+strout_t handle_zero_case(void);
 
 #endif
