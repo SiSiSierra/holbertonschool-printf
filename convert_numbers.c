@@ -88,17 +88,30 @@ return (out); /* return */
 }
 
 /**
- * convert_num_to_base - Convert an int into a string
+ * convert_num_to_base_8 - convert base 10 to 8 and return as a string
  *
  * @args: va_list with desired int next in line
  * @format: Struct containing formatting arguments
+ * Return: Pointer to converted string
+ */
+
+strout_t convert_num_to_base_8 (va_list args, format_t format)
+{
+char specifier = 'o';
+(void) format;
+unsigned int n = va_arg(args, unsigned int);
+return (convert_num_to_base(n, specifier));
+}
+
+/**
+ * convert_num_to_base - Convert an int into a string
+ *
  * @specifier: format specifier
  * Return: Pointer to converted string
  */
 
-strout_t convert_num_to_base (va_list args, format_t format, char specifier)
+strout_t convert_num_to_base (unsigned int n, char specifier)
 {
-unsigned int n = va_arg(args, unsigned int);
 unsigned int tmp = n;
 char digits[] = "123456789abcdef"
 unsigned int len = 0;
