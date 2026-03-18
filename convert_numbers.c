@@ -1,4 +1,6 @@
 #include "main.h"
+#include <stdio.h>
+
 /**
  * convert_int - Convert an int into a string
  *
@@ -51,4 +53,50 @@ strout_t convert_int(va_list args, format_t format)
 	reverse_string(out.string, i); /* reverse str in place */;
 	out.length = len;
 	return (out);
+}
+
+/**
+ * convert_int_to_bi - Convert an unsigned int into binary
+ *
+ * @args: va_list with desired int next in line
+ * @format: Struct containing formatting arguments
+ * Return: Pointer to converted string
+ */
+
+strout_t convert_unsigned_to_bi(va_list args, format_t format)
+{
+unsigned int n = va_arg(args, unsigned int);
+unsigned int tmp = n;
+int bit = 0, len = 0;
+strout_t out;
+(void) format;
+
+/* handle 0 case */
+if (n == 0)
+{
+out.string = malloc(1);
+if (out.string == NULL)
+exit(-1);
+out.string[0] = '0';
+out.length = 1;
+return (out);
+}
+
+/* find highest bit and therefore length*/
+while (tmp > 0)
+{
+tmp = tmp >> 1;
+bits++;
+}
+
+out.length = bits;
+out.string = malloc(bits);
+if (out.string == NULL)
+exit(-1);
+
+for (i = bits; i >= 2; i--)
+{
+
+}
+
 }
