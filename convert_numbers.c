@@ -86,3 +86,56 @@ out.string[bits - (i + 1)] = bit + '0';
 
 return (out); /* return */
 }
+
+/**
+ * convert_num_to_base - Convert an int into a string
+ *
+ * @args: va_list with desired int next in line
+ * @format: Struct containing formatting arguments
+ * @specifier: format specifier
+ * Return: Pointer to converted string
+ */
+
+strout_t convert_num_to_base (va_list args, format_t format, char specifier)
+{
+unsigned int n = va_arg(args, unsigned int);
+unsigned int tmp = n;
+char digits[] = "123456789abcdef"
+unsigned int len = 0;
+
+unsigned int base = 0;
+unsigned int uppercase = 0;
+
+strout_t out;
+(void) format;
+
+if (n == 0) /* handle 0 case */
+return (handle_zero_case());
+
+if (specifier == 'u') base = 10;
+else if (specifier == 'o') base = 8;
+else if (specifier == 'x') base = 16;
+else
+{
+base = 16;
+uppercase = 1;
+}
+
+/* find len depending on base */
+while (tmp > 0)
+{
+tmp /= base;
+len++;
+}
+
+out.length = len;
+out.string = malloc(len);
+if (out.string == NULL)
+exit(-1);
+
+/* logic here */
+
+
+
+return (out);
+}
