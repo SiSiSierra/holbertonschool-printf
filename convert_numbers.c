@@ -67,7 +67,7 @@ strout_t convert_unsigned_to_bi(va_list args, format_t format)
 {
 unsigned int n = va_arg(args, unsigned int);
 unsigned int tmp = n;
-int bits = 0, len = 0, bit = 0;
+int bits = 0, bit = 0, i = 0;
 strout_t out;
 (void) format;
 
@@ -96,7 +96,7 @@ exit(-1);
 
 for (i = bits; i >= 0; i--)
 {
-bit = (n >> i) & 1
+bit = (n >> i) & 1;
 out.string[bits - i] = bit + '0';
 }
 
