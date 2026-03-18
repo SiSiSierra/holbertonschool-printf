@@ -6,19 +6,20 @@
  * @len: Length of substring
  * Return: Undefined format substring
  */
-char *convert_undefined(const char *substring, unsigned int len)
+strout_t convert_undefined(const char *substring, unsigned int len)
 {
 	unsigned int i = 0;
-	char *out = malloc(len + 1);
+	strout_t out;
 
-	if (out == NULL)
+	out.length = len;
+	out.string = malloc(len);
+	if (out.string == NULL)
 		exit(-1);
 	while (i < len)
 	{
-		out[i] = substring[i];
+		out.string[i] = substring[i];
 		i++;
 	}
-	out[i] = '\0';
 	return (out);
 }
 
@@ -27,17 +28,17 @@ char *convert_undefined(const char *substring, unsigned int len)
  *
  * @args: Arguments from _printf with char next in line
  * @format: Struct containing formatting arguments
- * Return: Pointer to new string
+ * Return: String and length
  */
-char *convert_char(va_list args, format_t format)
+strout_t convert_char(va_list args, format_t format)
 {
-	char *out = malloc(2);
+	strout_t out = {NULL, 1};
 	(void) format;
 
-	if (out == NULL)
+	out.string = malloc(1);
+	if (out.string == NULL)
 		exit(-1);
-	out[0] = va_arg(args, int);
-	out[1] = '\0';
+	out.string[0] = va_arg(args, int);
 	return (out);
 }
 
@@ -46,31 +47,30 @@ char *convert_char(va_list args, format_t format)
  *
  * @args: Arguments from _printf with char next in line
  * @format: Struct containing formatting arguments
- * Return: Pointer to new string
+ * Return: String and length
  */
-char *convert_str(va_list args, format_t format)
+strout_t convert_str(va_list args, format_t format)
 {
-	char *out;
 	char *data = va_arg(args, char *);
+	strout_t out;
 	int i = 0;
 	(void) format;
 
-/* handle NULL value */
-if (data == NULL)
-data = "(null)";
+	/* handle NULL value */
+	if (data == NULL)
+		data = "(null)";
 
-while (data[i] != '\0')
-i++;
-out = malloc(i + 1);
-if (out == NULL)
-exit(-1);
-i = 0;
-while (data[i] != '\0')
-{
-out[i] = data[i];
-i++;
-}
-out[i] = '\0';
-
-return (out);
+	while (data[i] != '\0')
+		i++;
+	out.string = malloc(i + 1);
+	if (out.string == NULL)
+		exit(-1);
+	i = 0;
+	while (data[i] != '\0')
+	{
+		out.string[i] = data[i];
+		i++;
+	}
+	out.length = i;
+	return (out);
 }

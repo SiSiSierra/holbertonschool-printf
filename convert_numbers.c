@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
  * convert_int - Convert an int into a string
  *
@@ -8,44 +8,45 @@
  * Return: Pointer to converted string
  */
 
-char *convert_int(va_list args, format_t format)
+strout_t convert_int(va_list args, format_t format)
 {
-int n = va_arg(args, int); /* get int from arg list */
-long i = 0, tmp = n, num = n;
-int len = 0, negative = 0;
-char *buffer;
-(void) format;
-if (n == 0) /* handle zero case*/
-{
-buffer = malloc(2);
-if (!buffer)
-exit(-1);
-buffer[0] = '0';
-buffer[1] = '\0';
-return (buffer);
-}
-if (tmp < 0) /* convert tmp to positive and store sign */
-{
-tmp = -tmp;
-negative = 1;
-}
-num = tmp;
-while (tmp > 0) /* find len of number */
-{
-tmp /= 10;
-len++;
-}
-buffer = malloc(len + negative + 1); /* allocate mem for buffer */
-if (!buffer)
-exit(-1);
-for (i = 0; num > 0; i++) /* add number in reverse */
-{
-buffer[i] = (num % 10) + '0';
-num /= 10;
-}
-if (negative == 1) /* add negative sign*/
-buffer[i++] = '-';
-reverse_string(buffer, i); /* reverse str in place */
-buffer[i] = '\0';
-return (buffer);
+	int n = va_arg(args, int); /* get int from arg list */
+	long i = 0, tmp = n, num = n;
+	int len = 0, negative = 0;
+	strout_t out;
+	(void) format;
+
+	if (n == 0) /* handle zero case*/
+	{
+		out.string = malloc(1);
+		if (out.string == NULL)
+			exit(-1);
+		out.string[0] = '0';
+		out.length = 1;
+		return (out);
+	}
+	if (tmp < 0) /* convert tmp to positive and store sign */
+	{
+		tmp = -tmp;
+		negative = 1;
+	}
+	num = tmp;
+	while (tmp > 0) /* find len of number */
+	{
+		tmp /= 10;
+		len++;
+	}
+	out.string = malloc(len + negative); /* allocate mem for buffer */
+	if (out.string == NULL)
+		exit(-1);
+	for (i = 0; num > 0; i++) /* add number in reverse */
+	{
+		out.string[i] = (num % 10) + '0';
+		num /= 10;
+	}
+	if (negative == 1) /* add negative sign*/
+		out.string[i++] = '-';
+	reverse_string(out.string, i); /* reverse str in place */;
+	out.length = len;
+	return (out);
 }

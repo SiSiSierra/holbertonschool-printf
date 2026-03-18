@@ -16,10 +16,9 @@ int _printf(const char *format, ...)
 {
 	int printed = 0;
 	int i = 0;
-	int j;
 	va_list args;
 	format_t subformat;
-	char *output;
+	strout_t output;
 
 	va_start(args, format);
 	while (format[i] != '\0')
@@ -36,15 +35,15 @@ int _printf(const char *format, ...)
 			i += 2;
 			continue;
 		}
+		if (format[i + 1] == '\0')
+		{
+			va_end(args);
+			return(-1);
+		}
 		subformat = get_subformat(&format[i]);
 		output = get_conv_func(&format[i] + subformat.length - 1, args, subformat);
-		j = 0;
-		while (output[j] != '\0')
-		{
-			printed += write(1, &output[j], 1);
-			j++;
-		}
-		free(output);
+		printed += write(1, output.string, output.length);
+		free(output.string);
 		/** Move i past used format string */
 		i += subformat.length;
 		continue;

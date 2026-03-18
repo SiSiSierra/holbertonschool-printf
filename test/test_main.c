@@ -22,6 +22,14 @@ int main(void)
     printf("Standard printf length: %d\n", len1);
     printf("Our printf length: %d\n\n", len2);
 
+    x = -1234;
+    printf("Standard printf:\n");
+    len1 = printf("test %d\n", x);
+    printf("Our printf:\n");
+    len2 = _printf("test %d\n", x);
+    printf("Standard printf length: %d\n", len1);
+    printf("Our printf length: %d\n\n", len2);
+
     /* Test positive integer */
     x = 456;
     len1 = printf("test %d\n", x);
@@ -74,7 +82,15 @@ int main(void)
     printf("%!\n");
     _printf("%!\n");
     printf("%K\n");
-	_printf("%K\n");
+    _printf("%K\n");
+
+    printf("Length of lone percent char print: %d\n", printf("%"));
+    _printf("Length of lone percent char print: %d\n", _printf("%"));
+
+    printf("Length of terminating char print: %d\n", printf("%c", '\0'));
+    _printf("Length of terminating char print: %d\n", _printf("%c", '\0'));
     
+
+
     return (0);
 }

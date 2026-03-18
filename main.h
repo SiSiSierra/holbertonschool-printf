@@ -44,6 +44,18 @@ typedef struct format
 } format_t;
 
 /**
+ * struct strout - Pointer to converted string and length of string
+ *
+ * @string: Pointer to string
+ * @length: Length of string
+ */
+typedef struct strout
+{
+        char *string;
+        unsigned int length;
+} strout_t;
+
+/**
  * struct conversion - Group conversion specifier and function
  *
  * @specifier: Last character in format specifying data type
@@ -52,21 +64,21 @@ typedef struct format
 typedef struct conversion
 {
         char specifier;
-        char *(*f)(va_list, format_t);
+        strout_t (*f)(va_list, format_t);
 } convert_t;
 
 /** Main function, _printf */
 int _printf(const char *format, ...);
 
 /** Sub-functions */
-char *get_conv_func(const char *, va_list, format_t);
+strout_t get_conv_func(const char *, va_list, format_t);
 format_t get_subformat(const char *);
 
-char *convert_int(va_list, format_t);
-char *convert_char(va_list, format_t);
-char *convert_str(va_list, format_t);
+strout_t convert_int(va_list, format_t);
+strout_t convert_char(va_list, format_t);
+strout_t convert_str(va_list, format_t);
 
-char *convert_undefined(const char *, unsigned int);
+strout_t convert_undefined(const char *, unsigned int);
 
 /** Helper functions */
 void reverse_string(char *buffer, int len);
