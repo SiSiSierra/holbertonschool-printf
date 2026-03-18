@@ -55,17 +55,22 @@ char *convert_str(va_list args, format_t format)
 	int i = 0;
 	(void) format;
 
-	while (data[i] != '\0')
-		i++;
-	out = malloc(i + 1);
-	if (out == NULL)
-		exit(-1);
-	i = 0;
-	while (data[i] != '\0')
-	{
-		out[i] = data[i];
-		i++;
-	}
-	out[i] = '\0';
-	return (out);
+/* handle NULL value */
+if (data == NULL)
+data = "(null)";
+
+while (data[i] != '\0')
+i++;
+out = malloc(i + 1);
+if (out == NULL)
+exit(-1);
+i = 0;
+while (data[i] != '\0')
+{
+out[i] = data[i];
+i++;
+}
+out[i] = '\0';
+
+return (out);
 }

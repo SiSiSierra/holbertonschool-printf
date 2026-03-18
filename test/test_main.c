@@ -65,5 +65,16 @@ int main(void)
     _printf("Number -> %d <- Number\n", -5);
 	printf("Number -> %d <- Number\n", 555995);
     _printf("Number -> %d <- Number\n", 555995);
-	return (0);
+
+    
+    printf("Complete the sentence: You %s nothing, Jon Snow.\n", (char *)0);
+    _printf("Complete the sentence: You %s nothing, Jon Snow.\n", (char *)0);
+    printf("%c", '\0');
+    _printf("%c", '\0');
+    printf("%!\n");
+    _printf("%!\n");
+    printf("%K\n");
+	_printf("%K\n");
+    
+    return (0);
 }
