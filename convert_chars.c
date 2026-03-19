@@ -110,3 +110,36 @@ out.length = len;
 
 return (out);
 }
+
+/**
+ * convert_rot13 - return string after rot13 cipher
+ *
+ * @args: Arguments from _printf with string next in line
+ * @format: Struct containing formatting arguments
+ * Return: String and length
+ */
+strout_t convert_rot13(va_list args, format_t format)
+{
+	strout_t out;
+	unsigned int i = 0;
+
+	out = convert_str(args, format);
+	while (i < out.length)
+	{
+		if (out.string[i] >= 'A' && out.string[i] <= 'Z')
+		{
+			if (out.string[i] <= 'M')
+				out.string[i] += 13;
+			else
+				out.string[i] -= 13;
+		} else if (out.string[i] >= 'a' && out.string[i] <= 'z')
+		{
+			if (out.string[i] <= 'm')
+				out.string[i] += 13;
+			else
+				out.string[i] -= 13;
+		}
+		i++;
+	}
+	return (out);
+}
