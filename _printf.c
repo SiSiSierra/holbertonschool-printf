@@ -41,11 +41,11 @@ int _printf(const char *format, ...)
 			return (-1);
 		}
 		subformat = get_subformat(&format[i]);
-		output = get_conv_func(&format[i] + subformat.length - 1, args, subformat);
+		output = get_conv_func(&format[i] + subformat.len - 1, args, subformat);
 		printed += write(1, output.string, output.length);
 		free(output.string);
 		/** Move i past used format string */
-		i += subformat.length;
+		i += subformat.len;
 		continue;
 	}
 	va_end(args);

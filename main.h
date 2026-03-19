@@ -10,9 +10,9 @@
 /**
  * struct flags - Contains boolean states for each accepted flag
  *
- * @hash: '#' flag is present
- * @zero: '0' flag is present
- * @hyphen: '-' flag is present
+ * @alternate: '#' flag is present
+ * @pad: '0' flag is present
+ * @left: '-' flag is present
  * @space: ' ' flag is present
  * @plus: '+' flag is present
  *
@@ -20,11 +20,11 @@
  */
 typedef struct flags
 {
-char hash;
-char zero;
-char hyphen;
-char space;
-char plus;
+	char alternate;
+	char pad;
+	char left;
+	char space;
+	char plus;
 } flags_t;
 
 /**
@@ -33,14 +33,16 @@ char plus;
  * @flags: List of all accepted flags as flag_t
  * @width: Non-zero positive number for minimum field width
  * @precision: Non-zero positive number for precision
- * @length: Determined length of total format substring
+ * @length_mod: Char indicating length modifier for conversion
+ * @len: Determined length of total format substring
  */
 typedef struct format
 {
-flags_t flags;
-unsigned int width;
-unsigned int precision;
-unsigned int length;
+	flags_t flags;
+	unsigned int width;
+	unsigned int precision;
+	char length_mod;
+	unsigned int len;
 } format_t;
 
 /**
@@ -51,8 +53,8 @@ unsigned int length;
  */
 typedef struct strout
 {
-char *string;
-unsigned int length;
+	char *string;
+	unsigned int length;
 } strout_t;
 
 /**
@@ -63,8 +65,8 @@ unsigned int length;
  */
 typedef struct conversion
 {
-char specifier;
-strout_t (*f)(va_list, format_t);
+	char specifier;
+	strout_t (*f)(va_list, format_t);
 } convert_t;
 
 /** Main function, _printf */
@@ -73,6 +75,8 @@ int _printf(const char *format, ...);
 /** Sub-functions */
 strout_t get_conv_func(const char *, va_list, format_t);
 format_t get_subformat(const char *);
+int get_flag(const char, flags_t *);
+int get_num(const char *, unsigned int *);
 
 strout_t convert_int(va_list, format_t);
 strout_t convert_char(va_list, format_t);

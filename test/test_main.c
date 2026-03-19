@@ -99,5 +99,17 @@ int main(void)
     
 
 
+	_printf("Flag recognition\n");
+	len1 = printf("%d\n", 500);
+	len2 = _printf("%0+d\n", 500);
+	printf("^ normal = %d, ours = %d\n", len1, len2);
+	len1 = printf("%s | Thing with flags -> %s", "Hello", "Hi\n");
+	len2 = _printf("%s | Thing with flags -> %#0-## +1234289.234ls", "Hello", "Hi\n");
+	printf("^ normal = %d, ours = %d\n", len1, len2);
+	printf("printf Invalid flags -> %####@d\n", 50);
+	_printf("_printf Invalid flags -> %####@d\n", 50);
+	printf("printf Invalid flags -> %# +.+d\n", 50);
+        _printf("_printf Invalid flags -> %# +.+d\n", 50);
+
     return (0);
 }
