@@ -42,7 +42,7 @@ if (negative == 1) /* add negative sign*/
 len++;
 out.string[i++] = '-';
 }
-reverse_string(out.string, i); /* reverse str in place */;
+reverse_string_helper(out.string, i); /* reverse str in place */;
 out.length = len;
 return (out);
 }

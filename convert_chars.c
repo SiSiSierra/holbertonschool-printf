@@ -1,4 +1,6 @@
 #include "main.h"
+#include <string.h>
+
 /**
  * convert_undefined - Return attempted format substring
  *
@@ -73,4 +75,38 @@ strout_t convert_str(va_list args, format_t format)
 	}
 	out.length = i;
 	return (out);
+}
+
+/**
+ * reverse_str - return reversed string
+ *
+ * @args: Arguments from _printf with char next in line
+ * @format: Struct containing formatting arguments
+ * Return: String and length
+ */
+strout_t reverse_str(va_list args, format_t format)
+{
+char *data = va_arg(args, char *);
+strout_t out;
+unsigned int len = 0, i = 0;
+(void) format;
+
+/* handle NULL value */
+if (data == NULL)
+data = "(null)";
+
+len = strlen(data);
+
+out.string = malloc(len);
+if (out.string == NULL)
+exit(-1);
+
+/* copy str without null byte */
+for (i = 0; i < len; i++)
+out.string[i] = data[i];
+
+reverse_string_helper(out.string, len);
+out.length = len;
+
+return (out);
 }
