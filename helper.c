@@ -8,7 +8,7 @@
  * @len: length of str
  */
 
-void reverse_string(char *str, int len)
+void reverse_string_helper(char *str, int len)
 {
 long start = 0;
 long end = len - 1;
