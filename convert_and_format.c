@@ -99,6 +99,10 @@ strout_t get_conv_func(char const *specifier, va_list args, format_t format)
 		{'c', convert_char},
 		{'s', convert_str},
 		{'b', convert_unsigned_to_bi},
+		{'u', convert_unsigned_to_base_10},
+		{'o', convert_unsigned_to_base_8},
+		{'x', convert_unsigned_to_base_16},
+		{'X', convert_unsigned_to_base_16_X},
 		{(char)0, NULL} /** Sentinel value, keep last */
 	};
 	int i = 0;

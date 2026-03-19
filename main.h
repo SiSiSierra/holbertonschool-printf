@@ -84,11 +84,16 @@ strout_t convert_int(va_list, format_t);
 strout_t convert_char(va_list, format_t);
 strout_t convert_str(va_list, format_t);
 strout_t convert_unsigned_to_bi(va_list, format_t);
+strout_t convert_unsigned_to_base_8(va_list, format_t);
+strout_t convert_unsigned_to_base_10(va_list, format_t);
+strout_t convert_unsigned_to_base_16(va_list, format_t);
+strout_t convert_unsigned_to_base_16_X(va_list, format_t);
 
 strout_t convert_undefined(const char *, unsigned int);
 
 /** Helper functions */
 void reverse_string(char *buffer, int len);
 strout_t handle_zero_case(void);
+strout_t convert_num_to_base(unsigned int n, char specifier);
 
 #endif
