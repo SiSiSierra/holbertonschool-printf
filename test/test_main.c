@@ -82,7 +82,6 @@ int main(void)
     printf("%!\n");
     _printf("%!\n");
     printf("%K\n");
-<<<<<<< Updated upstream
     _printf("%K\n");
 
     printf("Length of lone percent char print: %d\n", printf("%"));
@@ -90,15 +89,19 @@ int main(void)
 
     printf("Length of terminating char print: %d\n", printf("%c", '\0'));
     _printf("Length of terminating char print: %d\n", _printf("%c", '\0'));
-=======
-	_printf("%K\n");
 
-	/** Flags */
-	printf("%0+d\n", 500);
-	_printf("%0+d\n", 500);
->>>>>>> Stashed changes
-    
 
+	_printf("Flag recognition\n");
+	len1 = printf("%d\n", 500);
+	len2 = _printf("%0+d\n", 500);
+	printf("^ normal = %d, ours = %d\n", len1, len2);
+	len1 = printf("%s | Thing with flags -> %s", "Hello", "Hi\n");
+	len2 = _printf("%s | Thing with flags -> %#0-## +1234289.234ls", "Hello", "Hi\n");
+	printf("^ normal = %d, ours = %d\n", len1, len2);
+	printf("printf Invalid flags -> %####@d\n", 50);
+	_printf("_printf Invalid flags -> %####@d\n", 50);
+	printf("printf Invalid flags -> %# +.+d\n", 50);
+        _printf("_printf Invalid flags -> %# +.+d\n", 50);
 
     return (0);
 }
