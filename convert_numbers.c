@@ -120,7 +120,7 @@ return (convert_num_to_base(n, specifier));
 }
 
 /**
- * convert_unsigned_to_base_10 - convert unsigned int to base 10 and return as a string
+ * convert_unsigned_to_base_16 - convert unsigned int to base 16 and return as a string
  *
  * @args: va_list with desired int next in line
  * @format: Struct containing formatting arguments
@@ -135,57 +135,18 @@ unsigned int n = va_arg(args, unsigned int);
 return (convert_num_to_base(n, specifier));
 }
 
-
 /**
- * convert_num_to_base - Convert an int into a string
- * @n: int from arg list
- * @specifier: format specifier
+ * convert_unsigned_to_base_16_X - convert unsigned int to base 16 and return as a string
+ *
+ * @args: va_list with desired int next in line
+ * @format: Struct containing formatting arguments
  * Return: Pointer to converted string
  */
 
-strout_t convert_num_to_base (unsigned int n, char specifier)
+strout_t convert_unsigned_to_base_16_X (va_list args, format_t format)
 {
-unsigned int tmp = n;
-unsigned int len = 0;
-int i = 0;
-char nums[] = "0123456789abcdef";
-
-unsigned int base = 0;
-/* unsigned int uppercase = 0; */
-
-strout_t out;
-
-if (n == 0) /* handle 0 case */
-return (handle_zero_case());
-
-if (specifier == 'u') base = 10;
-else if (specifier == 'o') base = 8;
-else if (specifier == 'x') base = 16;
-else
-{
-base = 16;
-/* uppercase = 1; */
-}
-
-/* find len depending on base */
-while (tmp > 0)
-{
-tmp /= base;
-len++;
-}
-
-out.length = len;
-out.string = malloc(len);
-if (out.string == NULL)
-exit(-1);
-
-/* logic here */
-/* start from */
-for (i = len - 1; i >= 0 ;i--)
-{
-out.string[i] = nums[n % base];
-n /= base;
-}
-
-return (out);
+char specifier = 'X';
+unsigned int n = va_arg(args, unsigned int);
+(void) format;
+return (convert_num_to_base(n, specifier));
 }
