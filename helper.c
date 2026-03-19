@@ -53,9 +53,10 @@ unsigned int tmp = n;
 unsigned int len = 0;
 int i = 0;
 char nums[] = "0123456789abcdef";
+char nums_caps[] = "0123456789ABCDEF";
 
 unsigned int base = 0;
-/* unsigned int uppercase = 0; */
+unsigned int uppercase = 0;
 
 strout_t out;
 
@@ -68,7 +69,7 @@ else if (specifier == 'x') base = 16;
 else
 {
 base = 16;
-/* uppercase = 1; */
+uppercase = 1;
 }
 
 /* find len depending on base */
@@ -87,6 +88,9 @@ exit(-1);
 /* start from */
 for (i = len - 1; i >= 0 ;i--)
 {
+if (uppercase == 1)
+out.string[i] = nums_caps[n % base];
+else
 out.string[i] = nums[n % base];
 n /= base;
 }

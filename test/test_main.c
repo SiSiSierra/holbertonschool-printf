@@ -117,15 +117,15 @@ _printf("unsigned test: %u\n", 1000000);
 _printf("unsigned test: %u\n", -1);   
 _printf("unsigned test: %u\n", -2);
 
-_printf("unsigned test: %x\n", 0);           
-_printf("unsigned test: %x\n", 1);           
-_printf("unsigned test: %x\n", 10);        
-_printf("unsigned test: %x\n", 123);       
-_printf("unsigned test: %x\n", 1000);    
-_printf("unsigned test: %x\n", 65535);   
-_printf("unsigned test: %x\n", 1000000); 
-_printf("unsigned test: %x\n", -1);   
-_printf("unsigned test: %x\n", -2);
+_printf("unsigned test: %X\n", 0);           
+_printf("unsigned test: %X\n", 1);           
+_printf("unsigned test: %X\n", 10);        
+_printf("unsigned test: %X\n", 123);       
+_printf("unsigned test: %X\n", 1000);    
+_printf("unsigned test: %X\n", 65535);   
+_printf("unsigned test: %X\n", 1000000); 
+_printf("unsigned test: %X\n", -1);   
+_printf("unsigned test: %X\n", -2);
 
     return (0);
 }
