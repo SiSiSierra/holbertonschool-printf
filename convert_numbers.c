@@ -120,6 +120,23 @@ return (convert_num_to_base(n, specifier));
 }
 
 /**
+ * convert_unsigned_to_base_10 - convert unsigned int to base 10 and return as a string
+ *
+ * @args: va_list with desired int next in line
+ * @format: Struct containing formatting arguments
+ * Return: Pointer to converted string
+ */
+
+strout_t convert_unsigned_to_base_16 (va_list args, format_t format)
+{
+char specifier = 'x';
+unsigned int n = va_arg(args, unsigned int);
+(void) format;
+return (convert_num_to_base(n, specifier));
+}
+
+
+/**
  * convert_num_to_base - Convert an int into a string
  * @n: int from arg list
  * @specifier: format specifier
@@ -131,6 +148,7 @@ strout_t convert_num_to_base (unsigned int n, char specifier)
 unsigned int tmp = n;
 unsigned int len = 0;
 int i = 0;
+char nums[] = "0123456789abcdef";
 
 unsigned int base = 0;
 /* unsigned int uppercase = 0; */
@@ -165,8 +183,7 @@ exit(-1);
 /* start from */
 for (i = len - 1; i >= 0 ;i--)
 {
-tmp = n % base;
-out.string[i] = tmp + '0';
+out.string[i] = nums[n % base];
 n /= base;
 }
 

@@ -80,6 +80,7 @@ strout_t convert_str(va_list, format_t);
 strout_t convert_unsigned_to_bi(va_list, format_t);
 strout_t convert_unsigned_to_base_8 (va_list, format_t);
 strout_t convert_unsigned_to_base_10 (va_list, format_t);
+strout_t convert_unsigned_to_base_16 (va_list, format_t);
 
 strout_t convert_undefined(const char *, unsigned int);
 
