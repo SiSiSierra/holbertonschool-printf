@@ -1,4 +1,5 @@
 #include "main.h"
+#include <ctype.h>
 
 /**
  * reverse_string - reverse string in place
@@ -52,11 +53,9 @@ strout_t convert_num_to_base (unsigned int n, char specifier)
 unsigned int tmp = n;
 unsigned int len = 0;
 int i = 0;
-char nums[] = "0123456789abcdef";
-char nums_caps[] = "0123456789ABCDEF";
+char *nums = "0123456789abcdef";
 
 unsigned int base = 0;
-unsigned int uppercase = 0;
 
 strout_t out;
 
@@ -69,7 +68,7 @@ else if (specifier == 'x') base = 16;
 else
 {
 base = 16;
-uppercase = 1;
+nums = "0123456789ABCDEF";
 }
 
 /* find len depending on base */
@@ -84,13 +83,9 @@ out.string = malloc(len);
 if (out.string == NULL)
 exit(-1);
 
-/* logic here */
-/* start from */
+/* fill string from least significant to most */
 for (i = len - 1; i >= 0 ;i--)
 {
-if (uppercase == 1)
-out.string[i] = nums_caps[n % base];
-else
 out.string[i] = nums[n % base];
 n /= base;
 }
