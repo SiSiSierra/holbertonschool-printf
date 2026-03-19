@@ -73,6 +73,8 @@ typedef struct conversion
 int _printf(const char *format, ...);
 
 /** Sub-functions */
+int append_to_buffer(char *, char *, unsigned int);
+
 strout_t get_conv_func(const char *, va_list, format_t);
 format_t get_subformat(const char *);
 int get_flag(const char, flags_t *);
