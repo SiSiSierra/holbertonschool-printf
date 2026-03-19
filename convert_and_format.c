@@ -49,6 +49,6 @@ strout_t get_conv_func(char const *specifier, va_list args, format_t format)
 	while (*specifier != conversions[i].specifier && conversions[i].f != NULL)
 		i++;
 	if (conversions[i].f == NULL)
-		return(convert_undefined(specifier - format.length + 1, format.length));
+		return (convert_undefined(specifier - format.length + 1, format.length));
 	return (conversions[i].f(args, format));
 }
