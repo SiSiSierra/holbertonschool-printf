@@ -18,9 +18,8 @@ int _printf(const char *format, ...)
 	va_list args;
 	format_t subformat;
 	strout_t output;
-	char *buffer;
+	char *buffer = malloc(1024);
 
-	buffer = malloc(1024);
 	if (buffer == NULL)
 		return (-1);
 	va_start(args, format);
@@ -28,19 +27,17 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] != '%') /* Write char if not special */
 		{
-			buffer[printed] = format[i];
+			buffer[printed] = format[i++];
 			printed++;
-			i++;
 			continue;
 		}
 		if (format[i + 1] == '%') /* Write a '%' if escaped */
 		{
-			buffer[printed] = format[i + 1];
-			printed++;
+			buffer[printed++] = format[i + 1];
 			i += 2;
 			continue;
 		}
-		if (format[i + 1] == '\0')
+		if (format[i + 1] == '\0') /* Return a fail if % ends string */
 		{
 			va_end(args);
 			return (-1);
@@ -49,12 +46,12 @@ int _printf(const char *format, ...)
 		output = get_conv_func(&format[i] + subformat.len - 1, args, subformat);
 		printed += append_to_buffer(&buffer[printed], output.string, output.length);
 		free(output.string);
-		/** Move i past used format string */
 		i += subformat.len;
-		continue;
 	}
 	va_end(args);
-	return (write(1, buffer, printed));
+	printed = write(1, buffer, printed);
+	free(buffer);
+	return (printed);
 }
 
 /**
