@@ -9,12 +9,14 @@ Using a string containing format specifiers and supplied arguments, data can be 
 .PP
 format is a string that may or may not contain a format substring to convert a supplied argument into a string to be inserted in place of the substring. Format substrings take the next given argument, such that the arguments appear in the output in the same order they are given. Any amount of arguments can be given but must have a correct specifier in the respective substring. A format substring takes the form:
 .sp
-%[flags][width][precision][type specifier]
+%[flags][width][precision][length modifier][type specifier]
 .SS Flags
 Not yet implemented
 .SS Width
 Not yet implemented
 .SS Precision
+Not yet implemented
+.SS Length Modifier
 Not yet implemented
 .SS Specifier
 .RS d, i - Int
