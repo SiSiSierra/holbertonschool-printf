@@ -96,10 +96,26 @@ int main(void)
     _printf("binary of 35: %b\n", 35);
     _printf("binary of 35: %b\n", 5325);
 
-     _printf("oct of 22: %o\n", 22);
 
-    
+_printf("oct test: %o\n", 0);           
+_printf("oct test: %o\n", 1);           
+_printf("oct test: %o\n", 10);        
+_printf("oct test: %o\n", 123);       
+_printf("oct test: %o\n", 1000);    
+_printf("oct test: %o\n", 65535);   
+_printf("oct test: %o\n", 1000000); 
+_printf("oct test: %o\n", -1);   
+_printf("oct test: %o\n", -2);
 
+_printf("unsigned test: %u\n", 0);           
+_printf("unsigned test: %u\n", 1);           
+_printf("unsigned test: %u\n", 10);        
+_printf("unsigned test: %u\n", 123);       
+_printf("unsigned test: %u\n", 1000);    
+_printf("unsigned test: %u\n", 65535);   
+_printf("unsigned test: %u\n", 1000000); 
+_printf("unsigned test: %u\n", -1);   
+_printf("unsigned test: %u\n", -2);
 
     return (0);
 }

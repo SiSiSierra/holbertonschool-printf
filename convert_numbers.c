@@ -88,16 +88,32 @@ return (out); /* return */
 }
 
 /**
- * convert_num_to_base_8 - convert base 10 to base 8 and return as a string
+ * convert_unsigned_to_base_8 - convert unsigned in to base 8 and return as a string
  *
  * @args: va_list with desired int next in line
  * @format: Struct containing formatting arguments
  * Return: Pointer to converted string
  */
 
-strout_t convert_num_to_base_8 (va_list args, format_t format)
+strout_t convert_unsigned_to_base_8 (va_list args, format_t format)
 {
 char specifier = 'o';
+unsigned int n = va_arg(args, unsigned int);
+(void) format;
+return (convert_num_to_base(n, specifier));
+}
+
+/**
+ * convert_unsigned_to_base_10 - convert unsigned int to base 10 and return as a string
+ *
+ * @args: va_list with desired int next in line
+ * @format: Struct containing formatting arguments
+ * Return: Pointer to converted string
+ */
+
+strout_t convert_unsigned_to_base_10 (va_list args, format_t format)
+{
+char specifier = 'u';
 unsigned int n = va_arg(args, unsigned int);
 (void) format;
 return (convert_num_to_base(n, specifier));
@@ -149,9 +165,9 @@ exit(-1);
 /* start from */
 for (i = len - 1; i >= 0 ;i--)
 {
-tmp = n % 8;
+tmp = n % base;
 out.string[i] = tmp + '0';
-n /= 8;
+n /= base;
 }
 
 return (out);
