@@ -61,7 +61,9 @@ strout_t convert_str(va_list args, format_t format)
 
 	if (data == NULL)
 		data = "(null)";
-	while (data[i] != '\0')
+	if (format.precision == 0)
+		format.precision = 1048;
+	while (data[i] != '\0' && i < format.precision)
 		i++;
 	out = get_buffer(format.width, i);
 	if (!format.flags.left)

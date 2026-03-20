@@ -31,6 +31,8 @@ format_t get_subformat(const char *format)
 	}
 	if (subformat.flags.left || subformat.precision > 0)
 		subformat.flags.pad = 0;
+	if (subformat.flags.plus)
+		subformat.flags.space = 0;
 	subformat.len = i + 1;
 
 	return (subformat);

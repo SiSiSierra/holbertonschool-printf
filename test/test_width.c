@@ -34,6 +34,8 @@ int main(void)
         printf("[%-010d]\n", -159);
         _printf("[%-010d]\n", -159);
 
+	printf("[%+x]", 20);
+
 
 	return (0);
 }
