@@ -18,7 +18,7 @@ int _printf(const char *format, ...)
 	va_list args;
 	format_t subformat;
 	strout_t output;
-	char *buffer = malloc(1024);
+	char *buffer = malloc(8192);
 
 	if (buffer == NULL)
 		return (-1);
