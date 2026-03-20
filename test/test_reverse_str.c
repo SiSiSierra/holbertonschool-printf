@@ -23,6 +23,11 @@ _printf("reverse %r\n", "aabbcc");
 _printf("reverse %r\n", "a @ b ! c");
 _printf("reverse %r\n", NULL);
 
+_printf("%S\n", "\n");
+_printf("%S\n", "Hello\nWorld");
+_printf("%S\n", NULL);
+_printf("%S\n", "");
+
 return (0);
 }
 
