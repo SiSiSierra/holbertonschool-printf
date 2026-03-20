@@ -58,7 +58,7 @@ strout_t convert_str(va_list args, format_t format)
 	strout_t out;
 	int i = 0;
 	int j = 0;
-	
+
 	if (data == NULL)
 		data = "(null)";
 	while (data[i] != '\0')

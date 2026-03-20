@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
  * convert_int - Convert an int into a string
  *
@@ -10,41 +10,49 @@
 
 strout_t convert_int(va_list args, format_t format)
 {
-int n = va_arg(args, int); /* get int from arg list */
-long i = 0, tmp = n, num = n;
-int len = 0, negative = 0;
-strout_t out;
-(void) format;
-if (n == 0) /* handle zero case*/
-return (handle_zero_case());
+	int data = va_arg(args, int); /* get int from arg list */
+	long i = 0, tmp = data, tmp2 = data;
+	int len = 0, sign = 0;
+	strout_t out;
 
-if (tmp < 0) /* convert tmp to positive and store sign */
-{
-tmp = -tmp;
-negative = 1;
-}
-num = tmp;
-while (tmp > 0) /* find len of number */
-{
-tmp /= 10;
-len++;
-}
-out.string = malloc(len + negative); /* allocate mem for buffer */
-if (out.string == NULL)
-exit(-1);
-for (i = 0; num > 0; i++) /* add number in reverse */
-{
-out.string[i] = (num % 10) + '0';
-num /= 10;
-}
-if (negative == 1) /* add negative sign*/
-{
-len++;
-out.string[i++] = '-';
-}
-reverse_string_helper(out.string, i); /* reverse str in place */;
-out.length = len;
-return (out);
+	if (tmp < 0) /* convert tmp to positive and store sign */
+	{
+		tmp = -tmp;
+		sign = 1;
+	}
+	tmp2 = tmp;
+	if (format.flags.plus)
+		sign = 1;
+	if (tmp == 0)
+		len++;
+	while (tmp > 0) /* find len of number */
+	{
+		tmp /= 10;
+		len++;
+	}
+	out = get_buffer(format.width, len + sign); /* allocate mem for buffer */
+	if (!format.flags.left)
+		i = out.length - 1;
+	else
+		i = len + sign - 1;
+	if (data == 0)
+		out.string[i] = '0';
+	for (i = i; tmp2 > 0; i--) /* add number in reverse */
+	{
+		out.string[i] = (tmp2 % 10) + '0';
+		tmp2 /= 10;
+	}
+	if (format.flags.pad)
+	{
+		i = 0;
+		pad_buffer(out.string, len, format);
+	} else
+		pad_buffer(out.string, len + sign, format);
+	if (data < 0)
+		out.string[i] = '-';
+	else if (sign)
+		out.string[i] = '+';
+	return (out);
 }
 
 /**

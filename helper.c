@@ -30,9 +30,9 @@ strout_t get_buffer(int width, int len)
 /**
  * pad_buffer - Pad empty space in buffer
  *
- * @buffer - Pointer to buffer
- * @len - Length of content to be padded around
- * @format - Format struct
+ * @buffer: Pointer to buffer
+ * @len: Length of content to be padded around
+ * @format: Format struct
  * Return: void
  */
 void pad_buffer(char *buffer, int len, format_t format)
