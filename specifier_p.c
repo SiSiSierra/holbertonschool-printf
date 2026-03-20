@@ -18,7 +18,7 @@ unsigned int i = 0;
 
 if (ptr == NULL)
 {
-return (malloc_cpy_str("0x0"));
+return (malloc_cpy_str("(nil)"));
 }
 
 /* allocate memory */
