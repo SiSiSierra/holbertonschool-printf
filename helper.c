@@ -47,9 +47,9 @@ return (out);
  * Return: Pointer to converted string
  */
 
-strout_t convert_num_to_base(unsigned int n, char specifier)
+strout_t convert_num_to_base(unsigned long n, char specifier)
 {
-unsigned int tmp = n, len = 0, base = 0;
+unsigned long tmp = n, len = 0, base = 0;
 int i = 0;
 char *nums = "0123456789abcdef";
 strout_t out;

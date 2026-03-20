@@ -11,6 +11,10 @@ run file -
 
 int main(void)
 {
+void *p = "hello";
+void *a = "bye";
+void *b = "ptr";
+
 _printf("reverse %r\n", "dog");
 _printf("reverse %r\n", "hello");
 _printf("reverse %r\n", "why are there so many tasks");
@@ -27,6 +31,13 @@ _printf("%S\n", "\n");
 _printf("%S\n", "Hello\nWorld");
 _printf("%S\n", NULL);
 _printf("%S\n", "");
+
+_printf("%p\n", p);
+printf("printf: %p\n", p);
+_printf("%p\n", a);
+printf("printf: %p\n", a);
+_printf("%p\n", b);
+printf("printf: %p\n", b);
 
 return (0);
 }
