@@ -39,10 +39,10 @@ typedef struct flags
 typedef struct format
 {
 	flags_t flags;
-	unsigned int width;
-	unsigned int precision;
+	int width;
+	int precision;
 	char length_mod;
-	unsigned int len;
+	int len;
 } format_t;
 
 /**
@@ -78,7 +78,7 @@ int append_to_buffer(char *, char *, unsigned int);
 strout_t get_conv_func(const char *, va_list, format_t);
 format_t get_subformat(const char *);
 int get_flag(const char, flags_t *);
-int get_num(const char *, unsigned int *);
+int get_num(const char *, int *);
 
 strout_t convert_int(va_list, format_t);
 strout_t convert_char(va_list, format_t);
@@ -94,6 +94,9 @@ strout_t convert_rot13(va_list, format_t);
 strout_t convert_undefined(const char *, unsigned int);
 
 /** Helper functions */
+strout_t get_buffer(int, int);
+void pad_buffer(char *, int, format_t);
+
 void reverse_string_helper(char *buffer, int len);
 strout_t handle_zero_case(void);
 strout_t convert_num_to_base(unsigned int n, char specifier);

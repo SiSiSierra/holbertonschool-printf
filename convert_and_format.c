@@ -29,6 +29,8 @@ format_t get_subformat(const char *format)
 		subformat.length_mod = format[i];
 		i++;
 	}
+	if (subformat.flags.left || subformat.precision > 0)
+		subformat.flags.pad = 0;
 	subformat.len = i + 1;
 
 	return (subformat);
@@ -65,7 +67,7 @@ int get_flag(const char format, flags_t *subformat)
  * @subformat: Member in format struct to change
  * Return: Length of number in string
  */
-int get_num(const char *format, unsigned int *subformat)
+int get_num(const char *format, int *subformat)
 {
 	unsigned int len = 0;
 	unsigned int number = 0;

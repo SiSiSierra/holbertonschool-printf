@@ -33,13 +33,16 @@ strout_t convert_undefined(const char *substring, unsigned int len)
  */
 strout_t convert_char(va_list args, format_t format)
 {
-	strout_t out = {NULL, 1};
-	(void) format;
+	strout_t out;
+	int i;
 
-	out.string = malloc(1);
-	if (out.string == NULL)
-		exit(-1);
-	out.string[0] = va_arg(args, int);
+	out = get_buffer(format.width, 1);
+	if (format.flags.left)
+		i = 0;
+	else
+		i = out.length - 1;
+	out.string[i] = va_arg(args, int);
+	pad_buffer(out.string, 1, format);
 	return (out);
 }
 
