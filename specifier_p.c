@@ -8,12 +8,12 @@
  * Return: Pointer to converted string
  */
 
-strout_t specifier_p(va_list args, format_t format)
+strout_t specifier_p_func(va_list args, format_t format)
 {
 void *ptr = va_arg(args, void*);
 unsigned long address = (unsigned long)ptr;
-strout_t out, hex = convert_num_to_base(address, 'X');
-int i = 0;
+strout_t out, hex = convert_num_to_base(address, 'x');
+unsigned int i = 0;
 (void) format;
 
 /* allocate memory */
@@ -26,7 +26,7 @@ out.string[1] = 'x';
 
 while (i < hex.length)
 {
-out.string[2 + i] = hex.string[i]
+out.string[2 + i] = hex.string[i];
 i++;
 }
 

@@ -91,6 +91,7 @@ strout_t convert_unsigned_to_base_16_X(va_list, format_t);
 strout_t reverse_str(va_list, format_t);
 strout_t convert_rot13(va_list, format_t);
 strout_t print_non_printable(va_list, format_t);
+strout_t specifier_p_func(va_list, format_t);
 
 strout_t convert_undefined(const char *, unsigned int);
 

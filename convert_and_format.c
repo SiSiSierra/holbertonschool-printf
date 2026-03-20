@@ -106,6 +106,7 @@ strout_t get_conv_func(char const *specifier, va_list args, format_t format)
 		{'r', reverse_str},
 		{'R', convert_rot13},
 		{'S', print_non_printable},
+		{'p', specifier_p_func},
 		{(char)0, NULL} /** Sentinel value, keep last */
 	};
 	int i = 0;
