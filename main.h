@@ -99,5 +99,6 @@ strout_t convert_undefined(const char *, unsigned int);
 void reverse_string_helper(char *buffer, int len);
 strout_t handle_zero_case(void);
 strout_t convert_num_to_base(unsigned long n, char specifier);
+strout_t malloc_cpy_str(char *data);
 
 #endif

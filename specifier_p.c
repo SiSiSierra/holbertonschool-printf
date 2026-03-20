@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_non_printable - return memory address in string format
+ * specifier_p_func - return memory address in string format
  *
  * @args: va_list arguments passed into print function
  * @format: Struct containing formatting arguments
@@ -15,6 +15,11 @@ unsigned long address = (unsigned long)ptr;
 strout_t out, hex = convert_num_to_base(address, 'x');
 unsigned int i = 0;
 (void) format;
+
+if (ptr == NULL)
+{
+return (malloc_cpy_str("0x0"));
+}
 
 /* allocate memory */
 out.length = hex.length + 2;

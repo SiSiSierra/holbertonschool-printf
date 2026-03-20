@@ -90,3 +90,37 @@ n /= base;
 
 return (out);
 }
+
+/**
+ * cpy_str_malloc - Copy a string from arg to be editable
+ *
+ * @data: points to string to be malloced and copied
+ * Return: String and length
+ */
+strout_t malloc_cpy_str(char *data)
+{
+	strout_t out;
+	int i = 0;
+
+	/* handle NULL value */
+	if (data == NULL)
+		data = "(null)";
+
+	while (data[i] != '\0')
+		i++;
+
+	out.string = malloc(i + 1);
+	if (out.string == NULL)
+		exit(-1);
+
+	i = 0;
+	while (data[i] != '\0')
+	{
+		out.string[i] = data[i];
+		i++;
+	}
+
+	out.length = i;
+
+	return (out);
+}
