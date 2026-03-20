@@ -24,6 +24,7 @@ out.string = malloc(out.length);
 out.string[0] = '0';
 out.string[1] = 'x';
 
+/* copy hex to output */
 while (i < hex.length)
 {
 out.string[2 + i] = hex.string[i];
