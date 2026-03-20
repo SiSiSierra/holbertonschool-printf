@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
  * convert_ - Return attempted format substring
@@ -10,12 +11,11 @@
 
 strout_t print_non_printable(va_list args, format_t format)
 {
-// grab arg
 char *data = va_arg(args, char *);
 strout_t out;
 strout_t hex;
-unsigned int i = 0, j = 0, k = 0;
-unsigned char c = 0, len = 0;
+unsigned int i = 0, j = 0, k = 0, len = 0;
+unsigned char c = 0;
 (void) format;
 
 if (data == NULL)
@@ -33,14 +33,13 @@ len += 1;
 i++;
 }
 
+out.length = len;
 /* allocate memory */
 out.string = malloc(len);
 if (out.string == NULL)
 exit(-1);
 
 /* second loop to construct string */
-// data = original length
-// len = including hex
 i = 0;
 while(data[i] != '\0')
 {
@@ -56,6 +55,7 @@ out.string[j++] = 'x';
 if (hex.length == 1)
 out.string[j++] = '0';
 
+/* copy hex value to string */
 for (k = 0; k < hex.length; k++)
 out.string[j++] = hex.string[k];
 
@@ -63,7 +63,7 @@ free(hex.string);
 }
 else
 {
-out.string[j] = data[i];
+out.string[j++] = data[i];
 }
 
 i++;
