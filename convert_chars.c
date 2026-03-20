@@ -34,14 +34,13 @@ strout_t convert_undefined(const char *substring, unsigned int len)
 strout_t convert_char(va_list args, format_t format)
 {
 	strout_t out;
-	int i;
+	int i = 0;
 
 	out = get_buffer(format.width, 1);
-	if (format.flags.left)
-		i = 0;
-	else
+	if (!format.flags.left)
 		i = out.length - 1;
 	out.string[i] = va_arg(args, int);
+	format.flags.pad = 0;
 	pad_buffer(out.string, 1, format);
 	return (out);
 }
@@ -58,24 +57,24 @@ strout_t convert_str(va_list args, format_t format)
 	char *data = va_arg(args, char *);
 	strout_t out;
 	int i = 0;
-	(void) format;
-
-	/* handle NULL value */
+	int j = 0;
+	
 	if (data == NULL)
 		data = "(null)";
-
 	while (data[i] != '\0')
 		i++;
-	out.string = malloc(i + 1);
-	if (out.string == NULL)
-		exit(-1);
+	out = get_buffer(format.width, i);
+	if (!format.flags.left)
+		j = out.length - i;
 	i = 0;
 	while (data[i] != '\0')
 	{
-		out.string[i] = data[i];
+		out.string[j] = data[i];
 		i++;
+		j++;
 	}
-	out.length = i;
+	format.flags.pad = 0;
+	pad_buffer(out.string, i, format);
 	return (out);
 }
 
