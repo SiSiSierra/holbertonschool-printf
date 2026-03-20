@@ -38,6 +38,8 @@ _printf("%p\n", a);
 printf("printf: %p\n", a);
 _printf("%p\n", b);
 printf("printf: %p\n", b);
+_printf("%p\n", NULL);
+printf("printf: %p\n", NULL);
 
 return (0);
 }
