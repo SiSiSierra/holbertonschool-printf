@@ -1,6 +1,61 @@
 #include "main.h"
 
 /**
+ * get_buffer - Make a buffer based on width and justify arguments
+ *
+ * @width: Minimum size of buffer
+ * @len: Amount of characters determined to be inserted into buffer
+ * Return: strout struct with buffer and larger of width or len
+ */
+strout_t get_buffer(int width, int len)
+{
+	strout_t buffer;
+
+	if (width < len)
+	{
+		buffer.string = malloc(len);
+		if (buffer.string == NULL)
+			exit(-1);
+		buffer.length = len;
+		return (buffer);
+	}
+	buffer.string = malloc(width);
+	if (buffer.string == NULL)
+		exit(-1);
+	buffer.length = width;
+	return (buffer);
+}
+
+/**
+ * pad_buffer - Pad empty space in buffer
+ *
+ * @buffer: Pointer to buffer
+ * @len: Length of content to be padded around
+ * @format: Format struct
+ * Return: void
+ */
+void pad_buffer(char *buffer, int len, format_t format)
+{
+	int i = 0;
+	int pad = format.width - len;
+	int start = 0;
+	char fill = ' ';
+
+	if (pad <= 0)
+		return;
+	if (format.flags.pad)
+		fill = '0';
+	if (format.flags.left)
+		start = len;
+	while (i < pad)
+	{
+		buffer[start++] = fill;
+		i++;
+	}
+}
+
+
+/**
  * reverse_string - reverse string in place
  *
  * @str: str to be reversed
