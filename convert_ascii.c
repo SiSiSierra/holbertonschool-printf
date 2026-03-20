@@ -14,8 +14,8 @@ strout_t print_non_printable(va_list args, format_t format)
 char *data = va_arg(args, char *);
 strout_t out;
 strout_t hex;
-int i = 0, j = 0, k = 0;
-unsigned char a = 0, len = 0;
+unsigned int i = 0, j = 0, k = 0;
+unsigned char c = 0, len = 0;
 (void) format;
 
 if (data == NULL)
@@ -24,8 +24,8 @@ data = "(null)";
 /* first loop to get len */
 while (data[i] != '\0')
 {
-a = data[i];
-if (a < 32 || a >= 127)
+c = data[i];
+if (c < 32 || c >= 127)
 len += 4;
 else
 len += 1;
@@ -39,32 +39,35 @@ if (out.string == NULL)
 exit(-1);
 
 /* second loop to construct string */
-while(j < len)
+// data = original length
+// len = including hex
+i = 0;
+while(data[i] != '\0')
 {
-a = data[j];
+c = data[i];
 
-if (a < 32 || a >= 127)
+if (c < 32 || c >= 127)
 {
-hex = convert_unsigned_to_base_16_X(a)
+hex = convert_num_to_base(c, 'X');
 
-out.string[j] = '\\';
-out.string[j + 1] = 'x';
+out.string[j++] = '\\';
+out.string[j++] = 'x';
 
 if (hex.length == 1)
-out.string[j + 2] = '0';
+out.string[j++] = '0';
 
 for (k = 0; k < hex.length; k++)
-out.string[j + 3 + k] = hex.string[k];
+out.string[j++] = hex.string[k];
 
-j += 4;
+free(hex.string);
 }
 else
 {
 out.string[j] = data[i];
-j++;
-}
 }
 
+i++;
+}
 
 return (out);
 }
