@@ -1,5 +1,7 @@
 #include "main.h"
-#include <stdio.h>
+
+
+
 /**
  * convert_int - Convert an int into a string
  *
@@ -7,51 +9,47 @@
  * @format: Struct containing formatting arguments
  * Return: Pointer to converted string
  */
-
 strout_t convert_int(va_list args, format_t format)
 {
-	int data = va_arg(args, int); /* get int from arg list */
-	long i = 0, tmp = data, tmp2 = data;
-	int len = 0, sign = 0;
+	int data = va_arg(args, int), len = 0, sign = 0;
+	long i = 0, j, tmp = data, tmp2 = data;
 	strout_t out;
 
-	if (tmp < 0) /* convert tmp to positive and store sign */
-	{
-		tmp = -tmp;
-		sign = 1;
-	}
-	tmp2 = tmp;
-	if (format.flags.plus)
+	if (tmp < 0 || format.flags.space || format.flags.plus) /** Check for prefix*/
 		sign = 1;
 	if (tmp == 0)
 		len++;
-	while (tmp > 0) /* find len of number */
-	{
-		tmp /= 10;
+	if (tmp < 0)
+		tmp = -tmp;
+	tmp2 = tmp;
+	for (tmp = data; tmp != 0; tmp /= 10) /* find len of number */
 		len++;
-	}
-	out = get_buffer(format.width, len + sign); /* allocate mem for buffer */
+	if (len < format.precision)
+		len += format.precision - len;
+	out = get_buffer(format.width, len + sign);
 	if (!format.flags.left)
-		i = out.length - 1;
-	else
-		i = len + sign - 1;
+		i = out.length - len - sign;
 	if (data == 0)
 		out.string[i] = '0';
-	for (i = i; tmp2 > 0; i--) /* add number in reverse */
+	i = i + len + sign - 1;
+	for (j = 0; j < len; j++) /* add number in reverse */
 	{
 		out.string[i] = (tmp2 % 10) + '0';
 		tmp2 /= 10;
+		i--;
 	}
+	pad_buffer(out.string, len + sign, format);
 	if (format.flags.pad)
 	{
+		out.string[i] = '0';
 		i = 0;
-		pad_buffer(out.string, len, format);
-	} else
-		pad_buffer(out.string, len + sign, format);
+	}
 	if (data < 0)
 		out.string[i] = '-';
-	else if (sign)
+	else if (format.flags.plus)
 		out.string[i] = '+';
+	else if (format.flags.space)
+		out.string[i] = ' ';
 	return (out);
 }
 
