@@ -28,8 +28,40 @@ strout_t convert_unsigned_to_base_10(va_list args, format_t format)
 {
 char specifier = 'u';
 unsigned int n = va_arg(args, unsigned int);
-(void) format;
-return (convert_num_to_base(n, specifier));
+strout_t base_str = convert_num_to_base(n, specifier);
+strout_t out, tmp;
+
+int prefix_len = 0;
+int i = 0;
+/* apply precision */
+/* check for out.length < precision */
+/* if so, apply 0 to front of string */
+if (base_str.length < format.precision)
+{
+prefix_len = format.precision - base_str.length;
+tmp.string = malloc(prefix_len + base_str.length);
+/* prepend zeros */
+for (i = 0; i < prefix_len; i++)
+tmp.string[i] = '0';
+/* copy base str to out.string */
+for (i = 0; i < base_str.length; i++)
+tmp.string[prefix_len + i] = base_str.string[i];
+
+tmp.length = base_str.length + prefix_len;
+free(base_str.string);
+}
+else
+tmp = base_str;
+
+/* allocate memory using get buffer, handle width */
+out = getbuffer(format.width, tmp.length);
+
+/* pad the remaining width */
+pad_buffer(out.string, out.length, format);
+
+
+
+
 }
 
 /**
