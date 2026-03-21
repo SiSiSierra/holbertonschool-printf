@@ -29,7 +29,7 @@ strout_t convert_unsigned_to_base_10(va_list args, format_t format)
 char specifier = 'u';
 unsigned int n = va_arg(args, unsigned int);
 strout_t base_str = convert_num_to_base(n, specifier);
-strout_t out, tmp;
+strout_t out, tmp, tmp2;
 
 int prefix_len = 0;
 int i = 0;
@@ -53,11 +53,27 @@ free(base_str.string);
 else
 tmp = base_str;
 
+/* apply # flag */
+/* prepend 0 if value != 0 and first char isn't already 0 */
+if (format.flags.pad)
+{
+tmp2.length = tmp.length + 1;
+tmp2.string = malloc(tmp2.length);
+
+tmp2.string[0] = '0';
+for (i = 0; i < tmp.length; i++)
+tmp2.string[1 + i] = tmp.string;
+
+free (tmp.string);
+}
+/* prepend zero */
+
 /* allocate memory using get buffer, handle width */
 out = getbuffer(format.width, tmp.length);
-
-/* pad the remaining width */
+/* pad out depending on width */
 pad_buffer(out.string, out.length, format);
+
+/* copy tmp into out */
 
 
 
