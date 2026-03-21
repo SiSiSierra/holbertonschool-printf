@@ -11,16 +11,15 @@
 strout_t convert_unsigned_to_base_8(va_list args, format_t format)
 {
 char specifier = 'o';
-unsigned int n = va_arg(args, unsigned int);
+unsigned int n = va_arg(args, unsigned int), offset = 0;
 strout_t base_str = convert_num_to_base(n, specifier);
 strout_t out, tmp, tmp2;
 
-int prefix_len = 0;
-int i = 0;
+unsigned int i = 0, prefix_len = 0;
 /* apply precision */
 /* check for out.length < precision */
 /* if so, apply 0 to front of string */
-if (base_str.length < format.precision)
+if (base_str.length < (unsigned int)format.precision)
 {
 prefix_len = format.precision - base_str.length;
 tmp.string = malloc(prefix_len + base_str.length);
@@ -49,24 +48,24 @@ tmp2.string[0] = '0';
 for (i = 0; i < tmp.length; i++)
 tmp2.string[1 + i] = tmp.string[i];
 
+free (tmp.string);
 tmp = tmp2;
-free (tmp2.string);
 }
 
 /* allocate memory using get buffer, handle width */
-out = getbuffer(format.width, tmp.length);
+out = get_buffer(format.width, tmp.length);
 /* pad out depending on width */
 pad_buffer(out.string, out.length, format);
 
 /* flag left */
 /* if left copy number after padding */
 /* else copy padding starting i = 0 */
-if (format.flags.left)
-for (int i = 0; i < tmp.length; i++)
-out.string[i + format.width - tmp.length] = tmp.string[i];
-else
-for (int i = 0; i < tmp.length; i++)
-out.string[i] = tmp.string[i];
+
+offset = out.length - tmp.length;
+if (offset < 0)
+offset = 0;
+for (i = 0; i < tmp.length; i++)
+out.string[i + offset] = tmp.string[i];
 
 free(tmp.string);
 return (out);
@@ -83,7 +82,6 @@ return (out);
 strout_t convert_unsigned_to_base_10(va_list args, format_t format)
 {
 char specifier = 'u';
-char specifier = 'X';
 unsigned int n = va_arg(args, unsigned int);
 (void) format;
 return (convert_num_to_base(n, specifier));
