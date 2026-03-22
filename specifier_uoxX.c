@@ -11,34 +11,19 @@
 strout_t convert_unsigned_to_base_8(va_list args, format_t format)
 {
 char specifier = 'o';
-unsigned int data = va_arg(args, unsigned int), offset = 0;
+unsigned int data = va_arg(args, unsigned int);
 strout_t base_str = convert_num_to_base(data, specifier);
-strout_t out, tmp, tmp2;
+strout_t out, tmp;
 
-unsigned int i = 0;
 /* apply precision */
 /* check for out.length < precision */
 /* if so, apply 0 to front of string */
 tmp = apply_precision(base_str, format);
 
-
 /* apply # flag */
 /* prepend 0 if value != 0 and first char isn't already 0 */
 /* prepend zero */
-if (format.flags.alternate && tmp.string[0] != '0')
-{
-tmp2.length = tmp.length + 1;
-tmp2.string = malloc(tmp2.length);
-if (tmp2.string == NULL)
-exit(-1);
-
-tmp2.string[0] = '0';
-for (i = 0; i < tmp.length; i++)
-tmp2.string[1 + i] = tmp.string[i];
-
-free (tmp.string);
-tmp = tmp2;
-}
+tmp = apply_alternate(tmp, format);
 
 /* allocate memory using get buffer, handle width */
 out = get_buffer(format.width, tmp.length);
@@ -48,13 +33,7 @@ pad_buffer(out.string, tmp.length, format);
 /* flag left */
 /* if left copy number after padding */
 /* else copy padding starting i = 0 */
-
-
-if (!format.flags.left)
-offset = out.length - tmp.length;
-
-for (i = 0; i < tmp.length; i++)
-out.string[i + offset] = tmp.string[i];
+out = apply_left(out, tmp, format);
 
 free(tmp.string);
 return (out);

@@ -47,3 +47,53 @@ return (tmp);
 
 return (base_str);
 }
+
+/**
+ * apply_alternate - apply alternate # flag to string
+ *
+ * @base_str: converted string without format
+ * @format: Struct containing formatting arguments
+ * Return: strout struct with buffer and larger of width or len
+ */
+strout_t apply_alternate(strout_t tmp, format_t format)
+{
+unsigned int i = 0;
+strout_t tmp2;
+
+if (format.flags.alternate && tmp.string[0] != '0')
+{
+tmp2.length = tmp.length + 1;
+tmp2.string = malloc(tmp2.length);
+if (tmp2.string == NULL)
+exit(-1);
+
+tmp2.string[0] = '0';
+for (i = 0; i < tmp.length; i++)
+tmp2.string[1 + i] = tmp.string[i];
+
+free (tmp.string);
+tmp = tmp2;
+}
+
+return (tmp);
+}
+
+/**
+ * apply_left - apply left - flag to string
+ *
+ * @base_str: converted string without format
+ * @format: Struct containing formatting arguments
+ * Return: strout struct with buffer and larger of width or len
+ */
+strout_t apply_left(strout_t out, strout_t tmp, format_t format)
+{
+unsigned int i = 0, offset = 0;
+
+if (!format.flags.left)
+offset = out.length - tmp.length;
+
+for (i = 0; i < tmp.length; i++)
+out.string[i + offset] = tmp.string[i];
+
+return (out);
+}
