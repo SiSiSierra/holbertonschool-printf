@@ -1,12 +1,12 @@
 #include "main.h"
-
 /**
  * get_subformat - Determine every component of a format substring
  *
  * @format: Pointer to beginning of format substring
+ * @args: va_list if a width or precision is given as '*'
  * Return: Complete format_t struct
  */
-format_t get_subformat(const char *format)
+format_t get_subformat(const char *format, va_list args)
 {
 	format_t subformat = {{0, 0, 0, 0, 0}, 0, 0, 'a', 0};
 	int i = 1; /** 0 is the '%' icon starting the substring */
@@ -19,10 +19,21 @@ format_t get_subformat(const char *format)
 	}
 	if (format[i] >= '0' && format[i] <= '9') /** Second look for width */
 		i += get_num(&format[i], &subformat.width);
+	else if (format[i] == '*')
+	{
+		i++;
+		subformat.width = va_arg(args, int);
+	}
 	if (format[i] == '.') /** Third look for precision */
 	{
 		i++;
-		i += get_num(&format[i], &subformat.precision);
+		if (format[i] == '*')
+		{
+			subformat.precision = va_arg(args, int);
+			i++;
+		}
+		else
+			i += get_num(&format[i], &subformat.precision);
 	}
 	if (format[i] == 'l' || format[i] == 'h') /** Fourth look for length mod */
 	{
@@ -34,7 +45,6 @@ format_t get_subformat(const char *format)
 	if (subformat.flags.plus)
 		subformat.flags.space = 0;
 	subformat.len = i + 1;
-
 	return (subformat);
 }
 

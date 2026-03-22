@@ -76,7 +76,7 @@ int _printf(const char *format, ...);
 int append_to_buffer(char *, char *, unsigned int);
 
 strout_t get_conv_func(const char *, va_list, format_t);
-format_t get_subformat(const char *);
+format_t get_subformat(const char *, va_list);
 int get_flag(const char, flags_t *);
 int get_num(const char *, int *);
 

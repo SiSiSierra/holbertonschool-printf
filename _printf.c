@@ -42,7 +42,7 @@ int _printf(const char *format, ...)
 			va_end(args);
 			return (-1);
 		}
-		subformat = get_subformat(&format[i]);
+		subformat = get_subformat(&format[i], args);
 		output = get_conv_func(&format[i] + subformat.len - 1, args, subformat);
 		printed += append_to_buffer(&buffer[printed], output.string, output.length);
 		free(output.string);
