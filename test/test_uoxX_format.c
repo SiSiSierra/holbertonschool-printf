@@ -276,6 +276,8 @@ _printf("% \n");
 printf("% \n"); 
 _printf("% % % % \n");
 printf("% % % % \n");
+_printf("%.*d\n", 6, 102498402);
+printf("%.*d\n", 6, 102498402);
 
 _printf("\n");
 }

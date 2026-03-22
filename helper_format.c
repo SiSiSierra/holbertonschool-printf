@@ -1,6 +1,41 @@
 #include "main.h"
 
 /**
+ * convert_format_unsigned_to_base - call functions to convert and format
+ *
+ * @args: va_list with desired int next in line
+ * @format: Struct containing formatting arguments
+ * @specifier: specifier
+ * Return: strout struct with buffer and larger of width or len
+ */
+ 
+strout_t convert_format_unsigned_to_base(va_list args, format_t format, char specifier)
+{
+unsigned int data = va_arg(args, unsigned int);
+strout_t out, tmp, base_str;
+
+/* convert string to base */
+base_str = convert_num_to_base(data, specifier);
+/* apply precision format */
+tmp = apply_precision(base_str, format);
+/* apply # flag if needed */
+if (specifier == 'x' || specifier == 'X')
+tmp = apply_alternate_xX(tmp, format, specifier, data);
+else if (specifier == 'o')
+tmp = apply_alternate(tmp, format);
+
+/* allocate memory using get buffer, handle width */
+out = get_buffer(format.width, tmp.length);
+/* pad out depending on width */
+pad_buffer(out.string, tmp.length, format);
+/* apply left flag */
+out = apply_left(out, tmp, format);
+
+free(tmp.string);
+return (out);
+}
+
+/**
  * apply_precision - apply precision format to string
  *
  * @base_str: converted string without format
@@ -83,6 +118,7 @@ return (tmp);
  *
  * @base_str: converted string without format
  * @format: Struct containing formatting arguments
+ * @specifier: specifier
  * Return: strout struct with buffer and larger of width or len
  */
 strout_t apply_alternate_xX(strout_t tmp, format_t format, char specifier, unsigned int data)
