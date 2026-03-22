@@ -36,6 +36,19 @@ _printf("octal printed: %o = 37777777777\n", -1);
 _printf("UINT_MAX oct printed: %o = 37777777777\n", UINT_MAX);
 _printf("\n");
 
+_printf("octal printed: %o = 2322\n", 1234);
+_printf("octal printed: %.7o = 0002322\n", 1234);
+_printf("octal printed: %12o =         2322\n", 1234);
+_printf("octal printed: %-12o = 2322        \n", 1234);
+_printf("octal printed: %#o = 02322\n", 1234);
+_printf("octal printed: %#.7o = 002322\n", 1234);
+_printf("octal printed: %#8o = 00002322\n", 1234);
+_printf("octal printed: %6.3o =   2322\n", 1234);
+_printf("octal printed: %-10.7o = 0002322   \n", 1234);
+_printf("octal printed: %.3o = 007\n", 7);
+_printf("octal printed: %-6.3o = 007   \n", 7);
+_printf("\n");
+
 _printf("========== unsigned test ==========\n");
 _printf("unsigned printed: %u = 0\n", 0); 
 _printf("unsigned printed: %u = 1\n", 1); 
