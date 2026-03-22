@@ -1,31 +1,154 @@
-.TH man 3 "18/3/2-26" "1.0" "_printf man page"
+.TH _PRINTF 3 "18/3/2-26" "1.0" "C Functions"
 .SH NAME
 _printf \- Convert and format varying arguments into string to standard output
 .SH SYNOPSIS
-int _printf (const char *format, ...)
+int _printf ([const char *format], <...>)
+ [format]: A string containing characters to print and/or format substrings to convert addition arguments.
+ <...>: Optional additional arguments corresponding to format substrings in [format].
 .SH DESCRIPTION
 Using a string containing format specifiers and supplied arguments, data can be converted from their raw form into a string within or without additional textual information.
 .SH OPTIONS
 .PP
 format is a string that may or may not contain a format substring to convert a supplied argument into a string to be inserted in place of the substring. Format substrings take the next given argument, such that the arguments appear in the output in the same order they are given. Any amount of arguments can be given but must have a correct specifier in the respective substring. A format substring takes the form:
 .sp
-%[flags][width][precision][length modifier][type specifier]
-.SS Flags
-Not yet implemented
-.SS Width
-Not yet implemented
-.SS Precision
-Not yet implemented
-.SS Length Modifier
-Not yet implemented
-.SS Specifier
-.RS d, i - Int
-.RS c - Char
-.RS s - String
-.RS b - Unsigned int to binary form
+%[flags][width][.precision][length modifier]specifier
+.TP
+.SH Flags
+.RS
+.B #
+ Use the 'alternate' form of a hexadecimal(x, X) or octal(o) conversion. Hexadecimals that aren't zero will be prefixed by "0x' and octals that aren't zero will have a 0 prefix.
 
+.RE
+.RS
+.B 0
+ Pad a converted number with zeroes. This will only come into effect if a converted number has less characters than the given width. This is overriden if a 
+.B - 
+or precision is given.
+
+.RE
+.RS
+.B -
+ Justify the content to the left of the field instead of the right by default. This will only come into effect if a converted argument has less characters than the minimum width.
+
+.RE
+.RS
+.B ' '
+ Prefix a positive integer produced by an integer (d, i) with a space. This is overrided by the
+.B +
+flag.
+
+.RE
+.RS
+.B +
+ Prefix a positive integer produced by an integer (d, i) with a + sign.
+
+.RE
+.TP
+.SH Width
+.PP
+A positive number given in this field will determine the minimum number of characters produced by the conversion. If a conversion produces more characters than the width, it will print out as normal, but if there are less characters than the width the content will be adjusted to the right or left depending on the 
+.B - 
+flag, and be padded with spaces or zeroes depending on the justification, specifier, and given flags.
+
+An asterisk '*' may be given instead of a number, indicating the width is given as the next integer in the arguments.
+.TP
+.SH Precision
+.PP
+A period followed by a positive number indicated the precision to apply to the conversion. If used to convert a string, it defines the maximum number of characters to include from the source string. If used to convert a number, it defines the minimum number of digits to appear following the conversion, and if there are less digits than the precision then the number will be padded on the left with zeroes (independently of the 0 or other flags).
+
+An asterisk '*' may be given instead of a number, indicated the precision is given as the next integer in the arguments.
+.TP
+.SH Length Modifier
+.PP
+Not yet implemented
+.TP
+.SH Specifier
+.PP
+One of the following must be given after any/none of the above are given:
+
+.RS
+.B d, i
+ Convert a signed int into signed decimal notation as a string.
+
+.RE
+.RS
+.B c
+ Write the character corresponding to the given integer.
+
+.RE
+.RS
+.B s
+ Write the given string from a character pointer. The string is expected to be null terminated with '\0', otherwise behaviour is undefined.
+
+.RE
+.RS
+.B o
+ Convert the given unsigned int into an unsigned octal.
+
+.RE
+.RS
+.B u
+ Convert the given unsigned int into an unsigned decimal string.
+
+.RE
+.RS
+.B x, X
+ Convert the given unsigned int into an unsigned hexadecimal. The letters in the conversion correspond to the case given in the specifier, such as %x may produce 0x12ac and %X may produce 0X12AC.
+
+.RE
+.RS
+.B p
+ Convert the following pointer argument to hexadecimal format.
+
+.RE
+.PP
+The following specifiers are not intended to have an effect with flags, width, precision, or length modifiers:
+
+.RS
+.B b
+ Convert the given unsigned int into an unsigned binary.  
+
+.RE
+.RS
+.B S
+ Convert the unprintable characters in the pointed char string into an uppercase hexadecimal in the format "\x[CHAR]", then print the whole string included those converted unprintable characters.
+
+.RE
+.RS
+.B r
+ Reverse the contents of the string, then print it.
+
+.RE
+.RS
+.B R
+ Apply the rot13 cipher to the given pointed string, then print it. The rot13 cipher moves alphabetical characters 13 places forward, cyclically, such that "Lazy" becomes "Ynml".
+
+.RS
+.SH EXAMPLES
+.TP
+.B Print a variable string
+ Input: _printf("Hey, %s.", name);, where name is a pointer to a string "Adora".
+ Output: Hey, Adora.
+
+.TP
+.B Print a number
+ Input: _printf("Bytes in a kilobyte: %d", 1024);
+ Output: Bytes in a kilobyte: 1024
+
+.TP
+.B Print a string and a number, the number is at least 9 digits long
+ Input: _printf("%s's high score: %.9d", "Sam", 4500);
+ Output: Sam's high score: 000004500
+
+.TP
+.B Print a hexadecimal, the field is at least 6 characters wide, is left justified, and has the hex prefix
+ Input: _printf("21 in hex: [%#6x]", 21);
+ Output: 21 in hex: [0x15  ]
 .SH BUGS
-No known bugs.
+.PP
+ Attempting to print a format string with a "% " followed by more characters that don't conform to the subformat definition may not print out correctly.
+ Attempting to convert a zero to hexadecimal with a width larger than 1 will not appropriately apply a padding.
+ Attempting to convert a signed int using d or i with zero precision should not print anything, but will print the number without padding. 
 .SH AUTHORS
 Sierra Hunt
 .sp
