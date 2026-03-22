@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
  * convert_int - Convert an int into a string
  *
@@ -37,7 +37,7 @@ strout_t convert_int(va_list args, format_t format)
 		i--;
 	}
 	pad_buffer(out.string, len + sign, format);
-	if (format.flags.pad)
+	if (format.flags.pad && i >= 0)
 	{
 		out.string[i] = '0';
 		i = 0;

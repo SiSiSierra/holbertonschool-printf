@@ -18,7 +18,8 @@ _printf("int printed: %i\n", -1);
 _printf("int printed: %i\n", 12345);  
 _printf("int printed: %i\n", -12345);
 _printf("INT_MAX printed: %i = 2147483647\n", INT_MAX); 
-_printf("INT_MIN printed: %i = -2147483648\n", INT_MIN); 
+_printf("INT_MIN printed: %i = -2147483648\n", INT_MIN);
+_printf("padded int printed: %0i = 102498402\n", 102498402);
 _printf("\n");
 
 _printf("========== binary test ==========\n");

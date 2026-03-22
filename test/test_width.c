@@ -33,6 +33,8 @@ int main(void)
         _printf("[%-07d]\n", 159);
         printf("[%-010d]\n", -159);
         _printf("[%-010d]\n", -159);
+	printf("%02d\n", 123);
+	_printf("%02d\n", 123);
 
 	printf("[%+x]", 20);
 
