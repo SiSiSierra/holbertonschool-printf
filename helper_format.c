@@ -15,6 +15,16 @@ strout_t tmp;
 if (format.precision < 0)
 return base_str;
 
+/* edge case */
+if (format.precision == 0 && base_str.string == 0)
+{
+tmp.string = malloc(0);
+if (tmp.string == NULL)
+exit(-1);
+tmp.length = 0;
+return (tmp);
+}
+
 if (base_str.length < (unsigned int)format.precision)
 {
 prefix_len = format.precision - base_str.length;
