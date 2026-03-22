@@ -15,28 +15,12 @@ unsigned int data = va_arg(args, unsigned int), offset = 0;
 strout_t base_str = convert_num_to_base(data, specifier);
 strout_t out, tmp, tmp2;
 
-unsigned int i = 0, prefix_len = 0;
+unsigned int i = 0;
 /* apply precision */
 /* check for out.length < precision */
 /* if so, apply 0 to front of string */
-if (base_str.length < (unsigned int)format.precision)
-{
-prefix_len = format.precision - base_str.length;
-tmp.string = malloc(prefix_len + base_str.length);
-if (tmp.string == NULL)
-exit(-1);
-/* prepend zeros */
-for (i = 0; i < prefix_len; i++)
-tmp.string[i] = '0';
-/* copy base str to out.string */
-for (i = 0; i < base_str.length; i++)
-tmp.string[prefix_len + i] = base_str.string[i];
+tmp = apply_precision(base_str, format);
 
-tmp.length = base_str.length + prefix_len;
-free(base_str.string);
-}
-else
-tmp = base_str;
 
 /* apply # flag */
 /* prepend 0 if value != 0 and first char isn't already 0 */
