@@ -102,6 +102,7 @@ strout_t apply_precision(strout_t, format_t);
 strout_t apply_alternate(strout_t, format_t);
 strout_t apply_alternate_xX(strout_t, format_t, char, unsigned int);
 strout_t apply_left(strout_t, strout_t, format_t);
+strout_t convert_format_unsigned_to_base(va_list, format_t, char);
 
 void reverse_string_helper(char *buffer, int len);
 strout_t handle_zero_case(void);
