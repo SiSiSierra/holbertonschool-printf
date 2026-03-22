@@ -12,11 +12,12 @@ strout_t apply_precision(strout_t base_str, format_t format)
 unsigned int i = 0, prefix_len = 0;
 strout_t tmp;
 
+/* if not specified */
 if (format.precision < 0)
 return base_str;
 
 /* edge case */
-if (format.precision == 0 && base_str.string == 0)
+if (format.precision == 0 && base_str.string[0] == '0' && base_str.length == 1)
 {
 tmp.string = malloc(0);
 if (tmp.string == NULL)
@@ -25,6 +26,7 @@ tmp.length = 0;
 return (tmp);
 }
 
+/* apply precision */
 if (base_str.length < (unsigned int)format.precision)
 {
 prefix_len = format.precision - base_str.length;

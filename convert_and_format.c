@@ -8,7 +8,7 @@
  */
 format_t get_subformat(const char *format)
 {
-	format_t subformat = {{0, 0, 0, 0, 0}, 0, 0, 'a', 0};
+	format_t subformat = {{0, 0, 0, 0, 0}, 0, -1, 'a', 0};
 	int i = 1; /** 0 is the '%' icon starting the substring */
 
 	while (format[i] != '\0') /** First look for flags */
