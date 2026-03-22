@@ -2,7 +2,10 @@
 .SH NAME
 _printf \- Convert and format varying arguments into string to standard output
 .SH SYNOPSIS
-int _printf ([const char *format], <...>)
+ #include "main.h"
+
+ int _printf ([const char *format], <...>)
+ 
  [format]: A string containing characters to print and/or format substrings to convert addition arguments.
  <...>: Optional additional arguments corresponding to format substrings in [format].
 .SH DESCRIPTION
