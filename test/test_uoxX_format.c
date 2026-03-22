@@ -269,5 +269,13 @@ printf("hex: %x\n", UINT_MAX);
 _printf("HEX: %X\n", UINT_MAX);
 printf("HEX: %X\n", UINT_MAX);
 
+_printf("========== failed cases ==========\n");
+_printf("hex: %#x\n", 0);
+printf("hex: %#x\n", 0);
+_printf("% \n"); 
+printf("% \n"); 
+_printf("% % % % \n");
+printf("% % % % \n");
+
 _printf("\n");
 }

@@ -100,7 +100,7 @@ strout_t get_buffer(int, int);
 void pad_buffer(char *, int, format_t);
 strout_t apply_precision(strout_t, format_t);
 strout_t apply_alternate(strout_t, format_t);
-strout_t apply_alternate_xX(strout_t, format_t, char);
+strout_t apply_alternate_xX(strout_t, format_t, char, unsigned int);
 strout_t apply_left(strout_t, strout_t, format_t);
 
 void reverse_string_helper(char *buffer, int len);

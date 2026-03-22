@@ -80,7 +80,7 @@ base_str = convert_num_to_base(data, specifier);
 /* apply precision format */
 tmp = apply_precision(base_str, format);
 /* apply # flag */
-tmp = apply_alternate_xX(tmp, format, specifier);
+tmp = apply_alternate_xX(tmp, format, specifier, data);
 /* allocate memory using get buffer, handle width */
 out = get_buffer(format.width, tmp.length);
 /* pad out depending on width */
@@ -111,7 +111,7 @@ base_str = convert_num_to_base(data, specifier);
 /* apply precision format */
 tmp = apply_precision(base_str, format);
 /* apply # flag */
-tmp = apply_alternate_xX(tmp, format, specifier);
+tmp = apply_alternate_xX(tmp, format, specifier, data);
 /* allocate memory using get buffer, handle width */
 out = get_buffer(format.width, tmp.length);
 /* pad out depending on width */
