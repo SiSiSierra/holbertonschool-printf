@@ -85,13 +85,13 @@ return (tmp);
  * @format: Struct containing formatting arguments
  * Return: strout struct with buffer and larger of width or len
  */
-strout_t apply_alternate_xX(strout_t tmp, format_t format, char specifier)
+strout_t apply_alternate_xX(strout_t tmp, format_t format, char specifier, unsigned int data)
 {
 unsigned int i = 0;
 strout_t tmp2;
 
-/* always prepend for hex if alt flag true */
-if (format.flags.alternate)
+/* prepend for hex if alt flag true and data is not 0 */
+if (format.flags.alternate && data != 0)
 {
 tmp2.length = tmp.length + 2;
 tmp2.string = malloc(tmp2.length);
