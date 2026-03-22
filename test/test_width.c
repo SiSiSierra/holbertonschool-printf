@@ -15,8 +15,8 @@ int main(void)
 
 
 	_printf("Strings\n");
-	printf("[%010s]\n", "Eye");
-        _printf("[%010s]\n", "Eye");
+	printf("[%6s]\n", "Best School!\n");
+        _printf("[%6s]\n", "Best School!\n");
 	printf("[%-010s]\n", "Eye");
         _printf("[%-010s]\n", "Eye");
 	printf("[%0100s]\n", "Eye");
