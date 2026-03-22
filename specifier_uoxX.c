@@ -72,9 +72,24 @@ return (out);
 strout_t convert_unsigned_to_base_16(va_list args, format_t format)
 {
 char specifier = 'x';
-unsigned int n = va_arg(args, unsigned int);
-(void) format;
-return (convert_num_to_base(n, specifier));
+unsigned int data = va_arg(args, unsigned int);
+strout_t out, tmp, base_str;
+
+/* convert string to base */
+base_str = convert_num_to_base(data, specifier);
+/* apply precision format */
+tmp = apply_precision(base_str, format);
+/* apply # flag */
+tmp = apply_alternate_xX(tmp, format, specifier);
+/* allocate memory using get buffer, handle width */
+out = get_buffer(format.width, tmp.length);
+/* pad out depending on width */
+pad_buffer(out.string, tmp.length, format);
+/* apply left flag */
+out = apply_left(out, tmp, format);
+
+free(tmp.string);
+return (out);
 }
 
 /**
@@ -88,7 +103,22 @@ return (convert_num_to_base(n, specifier));
 strout_t convert_unsigned_to_base_16_X(va_list args, format_t format)
 {
 char specifier = 'X';
-unsigned int n = va_arg(args, unsigned int);
-(void) format;
-return (convert_num_to_base(n, specifier));
+unsigned int data = va_arg(args, unsigned int);
+strout_t out, tmp, base_str;
+
+/* convert string to base */
+base_str = convert_num_to_base(data, specifier);
+/* apply precision format */
+tmp = apply_precision(base_str, format);
+/* apply # flag */
+tmp = apply_alternate_xX(tmp, format, specifier);
+/* allocate memory using get buffer, handle width */
+out = get_buffer(format.width, tmp.length);
+/* pad out depending on width */
+pad_buffer(out.string, tmp.length, format);
+/* apply left flag */
+out = apply_left(out, tmp, format);
+
+free(tmp.string);
+return (out);
 }

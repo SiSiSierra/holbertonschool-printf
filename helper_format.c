@@ -79,6 +79,38 @@ return (tmp);
 }
 
 /**
+ * apply_alternate_xX - apply alternate # flag to hex string
+ *
+ * @base_str: converted string without format
+ * @format: Struct containing formatting arguments
+ * Return: strout struct with buffer and larger of width or len
+ */
+strout_t apply_alternate_xX(strout_t tmp, format_t format, char specifier)
+{
+unsigned int i = 0;
+strout_t tmp2;
+
+/* always prepend for hex if alt flag true */
+if (format.flags.alternate)
+{
+tmp2.length = tmp.length + 2;
+tmp2.string = malloc(tmp2.length);
+if (tmp2.string == NULL)
+exit(-1);
+
+tmp2.string[0] = '0';
+tmp2.string[1] = specifier;
+for (i = 0; i < tmp.length; i++)
+tmp2.string[2 + i] = tmp.string[i];
+
+free (tmp.string);
+tmp = tmp2;
+}
+
+return (tmp);
+}
+
+/**
  * apply_left - apply left - flag to string
  *
  * @base_str: converted string without format
