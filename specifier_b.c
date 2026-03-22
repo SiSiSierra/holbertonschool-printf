@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * convert_int_to_bi - Convert an unsigned int into binary
  *

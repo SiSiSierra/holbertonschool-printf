@@ -11,8 +11,8 @@
 strout_t convert_unsigned_to_base_8(va_list args, format_t format)
 {
 char specifier = 'o';
-unsigned int n = va_arg(args, unsigned int), offset = 0;
-strout_t base_str = convert_num_to_base(n, specifier);
+unsigned int data = va_arg(args, unsigned int), offset = 0;
+strout_t base_str = convert_num_to_base(data, specifier);
 strout_t out, tmp, tmp2;
 
 unsigned int i = 0, prefix_len = 0;
@@ -39,7 +39,7 @@ tmp = base_str;
 /* apply # flag */
 /* prepend 0 if value != 0 and first char isn't already 0 */
 /* prepend zero */
-if (format.flags.pad)
+if (format.flags.alternate && tmp.string[0] != '0')
 {
 tmp2.length = tmp.length + 1;
 tmp2.string = malloc(tmp2.length);
