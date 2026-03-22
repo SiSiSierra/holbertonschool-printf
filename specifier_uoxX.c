@@ -23,6 +23,8 @@ if (base_str.length < (unsigned int)format.precision)
 {
 prefix_len = format.precision - base_str.length;
 tmp.string = malloc(prefix_len + base_str.length);
+if (tmp.string == NULL)
+exit(-1);
 /* prepend zeros */
 for (i = 0; i < prefix_len; i++)
 tmp.string[i] = '0';
@@ -43,6 +45,8 @@ if (format.flags.alternate && tmp.string[0] != '0')
 {
 tmp2.length = tmp.length + 1;
 tmp2.string = malloc(tmp2.length);
+if (tmp2.string == NULL)
+exit(-1);
 
 tmp2.string[0] = '0';
 for (i = 0; i < tmp.length; i++)
@@ -55,15 +59,16 @@ tmp = tmp2;
 /* allocate memory using get buffer, handle width */
 out = get_buffer(format.width, tmp.length);
 /* pad out depending on width */
-pad_buffer(out.string, out.length, format);
+pad_buffer(out.string, tmp.length, format);
 
 /* flag left */
 /* if left copy number after padding */
 /* else copy padding starting i = 0 */
 
+
+if (!format.flags.left)
 offset = out.length - tmp.length;
-if (offset < 0)
-offset = 0;
+
 for (i = 0; i < tmp.length; i++)
 out.string[i + offset] = tmp.string[i];
 
